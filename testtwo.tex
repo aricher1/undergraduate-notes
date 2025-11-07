@@ -1,0 +1,461 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm} 
+\usepackage{graphicx} 
+\usepackage{booktabs} 
+\usepackage{hyperref} 
+\usepackage{enumitem}
+\usepackage{fancyhdr} 
+\usepackage{xcolor} 
+
+% Custom styles
+\theoremstyle{definition}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem*{corollary*}{Corollary}
+\newtheorem{definition}{Definition}
+[section]
+\newenvironment{solution*}{\par\noindent\textbf{Solution.}\ }{\hfill$\square$\par}
+\pagestyle{fancy}
+\fancyhf{}
+
+\lhead{MATH-3580 Review}
+\rhead{Aidan Richer}
+\cfoot{\thepage}
+
+% Document info
+\title{\textbf{MATH-3580 Test Two Review}}
+\author{Aidan Richer}
+\date{October 2025}
+
+% Start of document
+\begin{document}
+
+\maketitle
+Test Two covers Chapter 2 - Parts 2 and 3 and Chapter 3 - Part 1 (up to Theorem 5)
+\tableofcontents
+\bigskip
+
+\section{Definitions}
+\subsection{Metric Space}
+In mathematics, space = set + structure(s).
+
+\begin{definition}
+Let \(X\) be a set. A function \(d: X \times X \rightarrow [0, \infty)\) is called a \textbf{metric} (or distance) on \(X\) if
+\begin{enumerate}
+    \item \(\forall x, y \in X, d(x,y) = 0 \iff x = y;\)
+    \item \(\forall x, y \in X, d(x,y)=d(y,x);\)
+    \item \(\forall x, y, z \in X, d(x,z) \leq d(x,y) + d(y,z).\) (Triangle inequality)
+\end{enumerate}
+In this case, \((X,d)\) is called a \textbf{metric space}.
+\end{definition}
+
+\subsection{Open Ball and Bounded Set}
+\begin{definition}
+    Let \((X,d)\) be a metric space, \(x \in X\), and \(r > 0\).
+\begin{enumerate}
+    \item Define \(B(x,r) = \{y \in X : d(x,y) < r \}\), called the \textbf{open ball} centered at x with radius r, or the \textbf{r-neighborhood of x}.
+    \item A general \textbf{neighborhood of x} is a subset \(U\) of \(X\) such that \(B(x,r) \subseteq U\) for some \(r > 0\).
+    \item A subset \(E \subseteq X\) of a metric space \((X,d)\) is \textbf{bounded} if there exists some \(x_0 \in X\) and \(M > 0\) such that \(d(x,x_0) \leq M\) for all \(x \in E\).
+\end{enumerate}
+\end{definition}
+
+\subsection{Interior Points and Interior}
+\begin{definition}
+    Let \(E \subseteq X\). The \textbf{closure} of \(E\) is the set \(\overline{E} = E \cup E'\).
+    \begin{enumerate}
+        \item An element \(x\) of \(X\) is called an \textbf{interior point} of \(E\) if \(\exists r > 0, B(x,r) \subseteq E\).
+        \item The \textbf{interior} of \(E\) is the set \(E^{\circ}\) of all interior points of E.
+    \end{enumerate}
+    By definition, we have \(E^{\circ} \subseteq E \subseteq \overline{E}\).
+\end{definition}
+
+\subsection{Open Set}
+\begin{definition}
+    A subset \(G \subseteq X\) is called \textbf{open} if \(\forall x \in G, \exists r>0, B(x,r) \subseteq G\). Note, \(\emptyset\) and \(X\) are open in \(X\). That is, a set is open if every point in it has an open ball around it that’s still entirely inside the set.
+\end{definition}
+
+\subsection{Limit Points and Derived Set}
+\begin{definition}
+    Let \(E \subseteq X\). 
+    \begin{enumerate}
+        \item \(x\) is called a \textbf{limit point} of \(E\) (or cluster point, or accumulation point) if \[\forall r>0, B(x,r) \cap E \text{ contains some } y \not=x\]
+        Equivalently, 
+        \[(B(x,r)-\{x\})\cap E \not= \emptyset\]
+        \item We let \(E' = \) the set of all limit points of \(E\), called the \textbf{derived set} of \(E\).
+    \end{enumerate}
+\end{definition}
+
+\subsection{Closed Set}
+\begin{definition}
+    A subset \(E \subseteq X\) is called \textbf{closed} if \(E' \subseteq E\), where \(E'\) is the derived set of E (the set of all limit points of E). Note, \(\emptyset\) and \(X\) are closed in \(X\). That is, a subset \(E \subseteq X\) is closed if every limit point of \(E\) belongs to \(E\).
+    \begin{enumerate}
+        \item \(E\) is open \(\iff X-E\) is closed;
+        \item \(E\) is closed \(\iff X-E\) is open.
+    \end{enumerate}
+\end{definition}
+
+\subsection{Closure}
+\begin{definition}
+    Let \(E \subseteq X.\) The \textbf{closure} of \(E\) is the set \(\overline{E} = E \cup E'\). 
+\end{definition}
+
+\subsection{Boundary Points and Boundary}
+\begin{definition}
+    Let \(X\) be a metric space, \(E \subseteq X\) and \(x \in X\).
+    \begin{enumerate}
+        \item \(x\) is called a \textbf{boundary point} of \(E\) if \(\forall r > 0, B(x,r) \cap E \not = \emptyset\) and \(B(x,r) \cap (X-E) \not = \emptyset\).
+        \item We use \(\partial E\) to denote the set of all boundary points of \(E\), called the \textbf{boundary} of \(E\).
+    \end{enumerate}
+\end{definition}
+
+\subsection{Open Cover}
+\begin{definition}
+    Let \(X\) be a metric space and let \(K \subseteq X\). A family \(\{G_{\alpha}\}\) of open sets in \(X\) is called an \textbf{open cover} of \(K\) if \(K \subseteq \bigcup_{\alpha}G_{\alpha}\). That is, every point of \(K\) lies in at least one of the open sets \(G_{\alpha}\).
+\end{definition}
+
+\subsection{Compact Set}
+\begin{definition}
+    The set \(K\) is called \textbf{compact} if every open cover of \(K\) has a finite \textbf{subcover} of \(K\). That is, if \(K \subseteq \bigcup_{\alpha}G_{\alpha}\), then \(\exists \alpha_1,\dots,\alpha_n\) such that \(K \subseteq \bigcup^n_{i=1}G_{\alpha}\).
+\end{definition}
+
+\subsection{Convergent Sequence}
+\begin{definition}
+    Let \((X,d)\) be a metric space and let \(\{x_n\}\) be a sequence in \(X\). We say that \(\{x_n\}\) is \textbf{convergent} if
+    \[\exists x \in X \text{ such that } \underline{\forall \epsilon > 0, \exists N = N(\epsilon) \in \mathbb{N}, \forall n \geq N, d(x_n, x) < \epsilon}.\]
+    In this case, we say that \(\{x_n\}\) converges to \(x\), and write \(x_n \rightarrow x\).
+\end{definition}
+
+\subsection{Divergent Sequence}
+\begin{definition}
+    We say that \(\{x_n\}\) is \textbf{divergent} if \(\{x_n\}\) is not convergent. That is, \(\forall x \in X, \{x_n\}\) does not converge to \(x\). The \(\epsilon\)-\(N\) description of divergence of \(\{x_n\}\) is
+    \[\underline{\forall x \in X, \exists \epsilon_0 > 0, \forall N, \exists n \geq N, d(x_n,x) \geq \epsilon_0}.\]
+\end{definition}
+
+\subsection{Bounded Sequence}
+\begin{definition}
+    A sequence \(\{x_n\}\) in a metric space \((X,d)\) is \textbf{bounded} if there exists a point \(x_0 \in X\) and a number \(M > 0\) such that 
+    \[d(x_n,x_0)\leq M \text{ for all } n \in \mathbb{N}\]
+    In other words, all terms of the sequence lie within some fixed distance \(M\) of a single point \(x_0\). In simplest terms, a sequence is bounded if all its terms lie inside some ball of finite radius.
+\end{definition}
+
+\subsection{The \(\epsilon\)-\(N\) description of \(x_n \rightarrow x\)}
+\begin{definition}
+    The \(\epsilon\)-\(N\) description of \(x_n \rightarrow x\) is 
+    \[\underline{\forall \epsilon > 0, \exists N=N(\epsilon) \in \mathbb{N}, \forall n \geq N, d(x_n,x) < \epsilon}.\]
+\end{definition}
+
+\subsection{The \(\epsilon\)-\(N\) description of \(x_n \not\rightarrow x\) }
+\begin{definition}
+    The \(\epsilon\)-\(N\) description of \(x_n \not \rightarrow x\) is
+    \[\underline{\exists \epsilon_0 > 0, \forall N, \exists n \in N, d(x_n,x) \geq \epsilon_0}.\]
+\end{definition}
+
+\section{Results}
+\subsection{Chapter 2: Theorem 6}
+\begin{theorem*}
+    Let \((X,d)\) be a metric space.
+    \begin{enumerate}
+        \item If \(\{G_{\alpha}\}\) is a family of open sets in \(X\), then \(\bigcup_{\alpha}G_{\alpha}\) is open in \(X\).
+        \item If \(G_1, \dots , G_n\) are open sets in \(X\), then \(\bigcap^n_{i=1}G_i\) is open in \(X\).
+    \end{enumerate}
+\end{theorem*}
+
+\subsection{Characterization (I) of \(x \in \overline{E}\)}
+Comparing with \(x \in \overline{E'} \iff \forall r > 0, (B(x,r) - \{x\}) \cap E \not = \emptyset\) (definition), we have
+\[\underline{x \in E' \iff \forall r > 0, B(x,r) \cap E \not = \emptyset}. \text{ Therefore, } E_1 \subseteq E_2 \implies \overline{E_1} \subseteq \overline{E_2}.\]
+
+\subsection{Chapter 2: Theorem 8}
+\begin{theorem*}
+    Every compact set in a metric space is bounded and closed. Therefore, if \(E\) is either unbounded or non-closed, them \(E\) is not compact.
+\end{theorem*}
+
+\subsection{Corollary 8}
+\begin{corollary*}
+    Let \(E \subseteq \mathbb{R}\). Then \(E\) is compact \(\iff E\) is bounded and closed. 
+\end{corollary*}
+
+\subsection{Chapter 3: Theorem 1}
+\begin{theorem*}
+    (Uniqueness of Limit). Let \((X,d)\) be a metric space and let \(\{x_n\}\) be a sequence in \(X\). If \(x_n \rightarrow x\) and \(x_n \rightarrow y\), then \(x = y\).
+\end{theorem*}
+
+\subsection{Chapter 3: Theorem 2}
+\begin{theorem*}
+    Any convergent sequence in a metric space is bounded.
+\end{theorem*}
+
+\subsection{Chapter 3: Theorem 3}
+\begin{theorem*}
+    (Squeeze Theorem in \(\mathbb{R}\)). Let \(\{a_n\}, \{b_n\}\) and \(\{c_n\}\) be sequences in \(\mathbb{R}\) such that \(a_n \rightarrow x, c_n \rightarrow x\), and \(\forall n, a_n \leq b_n \leq c_n\). Then \(b_n \rightarrow x\).
+\end{theorem*}
+
+\newpage 
+\section{Questions/Proofs}
+\subsection{Assignment 3: Question \#6}
+\textbf{Question:} Find \(E^{\circ}, E', \overline{E}, \text{ and }, \partial E\) for the following subsets \(E \subseteq \mathbb{R}\):
+\textbf{Recall:}
+\begin{itemize}
+    \item \(E^{\circ} = \text{ set of all interior points of } E\)
+    \item \(E' = \text{ set of all limit points of } E\)
+    \item \(\overline{E} = \text{ the closure set of } E = E\cup E'\)
+    \item \(\partial E = \text{ the set of all boundary points of } E = \overline{E} \cap \overline{(X-E)}\)
+\end{itemize}
+    \begin{enumerate}
+        \item \(E = \{1, \frac{1}{2}, \frac{1}{3}, \frac{1}{4}, \dots\}\ = \{\frac{1}{n}\}^\infty_{n=1}\)
+        \newline So we get,
+        \[
+        \left\{
+        \begin{array}{l}
+        E^{\circ} = \emptyset \\
+        E' = \{0\}\\
+        \overline{E} = E\cup E' = \{0\} \cup \{\frac{1}{n}\}^\infty_{n=1}\\
+        \partial E = \overline{E} \cap (\overline{\mathbb{R}-E}) = \overline{E} = \{0\} \cup \{\frac{1}{n}\}^\infty_{n=1} 
+        \end{array}
+        \right.
+        \]
+        \item \(E=(0,\pi) \cap \mathbb{Q}\)
+        \newline So we get,
+        \[
+        \left\{
+        \begin{array}{l}
+        E^{\circ} = \emptyset \\
+        E' = [0,\pi]\\
+        \overline{E} = E \cup E' = [0,\pi]\\
+        \partial E = \overline{E} \cap (\overline{\mathbb{R}-E}) = [0,\pi]
+        \end{array}
+        \right.
+        \]
+        \item \(E = [0,2) \cup (4,7) \cup \{8\}\)
+        \newline So we get,
+        \[
+        \left\{
+        \begin{array}{l}
+        E^{\circ} = (0,2) \cup (4,7) \\
+        E' = [0,2] \cup [4,7] \\
+        \overline{E} = E\cup E' = [0,2] \cup [4,7] \cup \{8\} \\
+        \partial E = \overline{E} \cap (\overline{\mathbb{R}-E}) = \{0,2,4,7,8\}
+        \end{array}
+        \right.
+        \]
+        Further analysis on \(\mathbb{R}-E\): \[\mathbb{R}-E = (-\infty,0) \cup [2,4]\cup[7,8) \cup (8,\infty)\]
+        \[\overline{\mathbb{R}-E} = (-\infty,0] \cup [2,4]\cup [7,\infty)\]
+        \item \(E = \mathbb{Z}\)
+        \newline So we get,
+        \[
+        \left\{
+        \begin{array}{l}
+        E^{\circ} = \emptyset \\
+        E' = \emptyset \\
+        \overline{E} = E\cup E' = \mathbb{Z} \\
+        \partial E = \overline{E} \cap (\overline{\mathbb{R}-E}) = \overline{E} \cap \mathbb{R} = \mathbb{Z} \}
+        \end{array}
+        \right.
+        \]
+    \end{enumerate}
+
+\subsection{Assignment 4: Question \#2}
+\textbf{Question:} Find \(E^{\circ}, E', \overline{E}, \text{ and }, \partial E\) for the following subsets \(E \subseteq \mathbb{R}\):
+\begin{enumerate}
+    \item \(E = (-\infty, 0) \cup (1,2) \cup \{5 + \frac{1}{n}: n = 1,2,3,\dots \}\)
+    \newline So we get,
+        \[
+        \left\{
+        \begin{array}{l}
+        E^{\circ} = (-\infty, 0) \cup (1,2) \\
+        E' = (-\infty, 0] \cup [1,2] \cup \{5\} \\
+        \overline{E} = E\cup E' = (-\infty,0] \cup [1,2] \cup \{5 + \frac{1}{n}\}^\infty_{n=1} \cup \{5\} \\
+        \partial E = \overline{E} \cap (\overline{\mathbb{R}-E}) = \{0,1,2,5\} \cup \{5+\frac{1}{n}\}^\infty_{n=1}
+        \end{array}
+        \right.
+        \]
+        Further analysis on \(\partial E\): \[=\overline{E} \cap \overline{([0,1]\cup ([2,\infty] - \{5+\frac{1}{n}\}^\infty_{n=1})}\]
+        \[=\overline{E}\cap([0,1] \cup[2,\infty))\]
+        \[=\{0,1,2,5\} \cup \{5+\frac{1}{n}\}^\infty_{n=1}\]
+        \item \(E = \{\pi\} \cup \mathbb{N}\)
+        \newline So we get,
+        \[
+        \left\{
+        \begin{array}{l}
+        E^{\circ} = \emptyset \\
+        E' =  \emptyset \\
+        \overline{E} = E\cup E' = \{\pi\} \cup \mathbb{N} \text{ (so just E)} \\
+        \partial E = \overline{E} \cap (\overline{\mathbb{R}-E}) = E \cap \mathbb{R} = \{\pi\} \cup \mathbb{N} \text{ (so just E) }
+        \end{array}
+        \right.
+        \]
+        \item \(E = \{\pi\} \cup \mathbb{Q}\)
+        \newline So we get,
+        \[
+        \left\{
+        \begin{array}{l}
+        E^{\circ} = \emptyset \\
+        E' = \mathbb{R} \text{ (since \(\mathbb{Q}\) is dense in } \mathbb{R})  \\
+        \overline{E} = E\cup E' = \mathbb{R}\\
+        \partial E = \overline{E} \cap (\overline{\mathbb{R}-E}) = \mathbb{R}
+        \end{array}
+        \right.
+        \]
+        Further analysis on \(\mathbb{R}-E\):
+        \begin{align*}
+            &=\mathbb{R} - E = \{x \in \mathbb{R} \ | \ x \text{ is irrational and } x \not = \pi \} \\
+            & =\overline{\mathbb{R}-E} = \mathbb{R} \text{, (since \(\mathbb{(R-Q)}-\{\pi\}\) is dense in \(\mathbb{R}\))}
+        \end{align*}
+\end{enumerate}
+
+\newpage
+\subsection{Assignment 4: Question \#3}
+\textbf{Question:} Give an open cover of the set \([0,1] \cap \mathbb{Q} \text{ in } \mathbb{R}\) that has no finite subcover.
+    \begin{proof}
+    \begin{align*}
+        & \implies \text{ Note: } \frac{\pi}{4} \in [0,1] \text { and } \frac{\pi}{4} \not \in \mathbb{Q} \\
+        & \implies \text{ For } n \in \mathbb{N}, \text{ let } G_n=(-1,\frac{\pi}{4}-\frac{1}{2^n}) \cup (\frac{\pi}{4}, 2) \\
+        & \implies \text{ Each } G_n \text{ is open, and } G_1 \subseteq G_2 \subseteq G_3 \subseteq \text{ and } [0,1] \cap \mathbb{Q} \subseteq \bigcup^\infty_{n=1}G_n \text{ is an open cover } \\
+        & \implies \{G_n\}^\infty_{n=1} \text{ no finite subcover of } [0,1] \cap \mathbb{Q} \\
+        & \implies \forall n_0 \in \mathbb{N}, \bigcup^{n_0}_{n=1}G_n=G_{n_0} \text{ does not contain the points } (\frac{\pi}{4}-\frac{1}{2^{n_0}}, \frac{\pi}{4}) \cap \mathbb{Q} \\
+    \end{align*}
+    Therefore, there does not exist a finite subcover.
+    \end{proof}
+
+\subsection{Assignment 4: Question \#5}
+\textbf{Question:} Use the \(\epsilon\)-\(N\) definition to prove the following:
+        \begin{enumerate}
+        \item \[\lim _{n \to \infty} (1 + \frac{1}{n^2})=1\]
+        \begin{proof}
+        \begin{align*}
+            & \implies \text{ Given } \epsilon > 0, \text{ choose } N=\Bigg[\frac{1}{\sqrt{\epsilon}}\Bigg]+1 \text{ (integer part) } \\
+            & \implies \text{ Then } N > \frac{1}{\sqrt{\epsilon}} \implies \frac{1}{N^2} < \epsilon \\
+            & \implies \forall n \in \mathbb{N}, \text{ we have } \bigg | \big (1 + \frac{1}{n^2}) -1 \bigg | = \frac{1}{n^2} \leq \frac{1}{N^2} < \epsilon
+        \end{align*}
+        Therefore, \[\lim_{n \to \infty} (1 + \frac{1}{n^2})=1\]
+        \end{proof}
+        Further analysis on choosing \(N\) for \(n \geq N\):
+        \[\bigg | (1 + \frac{1}{n^2})-1 \bigg | < \epsilon \implies \bigg | \frac{1}{n^2} \bigg | < \epsilon \implies \frac{1}{n^2} < \epsilon\]
+        when \(n \geq N\), \(\frac{1}{n^2} \leq \frac{1}{N^2} < \epsilon\)
+        \[\frac{1}{\epsilon}<N^2 \implies \frac{1}{\sqrt{\epsilon}}<N\]
+        \item \[\lim_{n \to \infty} \frac{n}{n+1}=1\]
+        \begin{proof}
+        \begin{align*}
+            & \implies \text{ Given } \epsilon > 0. \text{ Take } N = \Bigg[\frac{1}{\epsilon} \Bigg] + 1 \text{ (integer part) } \\
+            & \implies \text{ Then } N \in \mathbb{N} \text{ and } \forall n \geq N, \text{ we get } \\
+            & \implies \Bigg|\frac{n}{n+1}-1\Bigg|=\frac{1}{n+1} < \frac{1}{n} \leq \frac{1}{N} < \epsilon
+        \end{align*}
+        Therefore, \[\lim_{n \to \infty} \frac{n}{n+1}=1\]
+        \end{proof}
+        Further analysis on choosing \(N\) for \(n \geq N\):
+        \[\Bigg|\frac{n}{n+1}-1\Bigg|=\Bigg|\frac{-1}{n+1}\Bigg|=\frac{1}{n+1}<\frac{1}{n}\leq \frac{1}{N} < \epsilon \iff N > \frac{1}{\epsilon}\]
+        Note: \[\frac{1}{\epsilon} < \Bigg[\frac{1}{\epsilon}\Bigg]+1\]
+        where \(\Bigg[ ...\Bigg]\) represents the integer part.
+        \item \[\text{ The sequence } \{1 + (-1)^n \} \text{ is divergent in } \mathbb{R}\]
+        \begin{proof} 
+        Case 1: \(x = 0\)
+        \begin{align*}
+            & \implies |x_n-x|=|x|, \text{ if \(n\) is even, then this implies } 2 \geq \epsilon_0 \\
+            & \implies \text{Take } \epsilon_0=2. \text{ Then } \forall N\in\mathbb{N}, \text{ taking } n = 2N, \text{ then } n \geq N \\
+            & \implies |x_n-x|=|x_n|=2 \geq \epsilon_0
+        \end{align*}
+        Case 2: \(x \not = 0\)
+        \begin{align*}
+            & \implies |x_n-x|, \text{ if \(n\) is odd, then this implies } |x| \geq \epsilon_0 \\
+            & \implies \text{ Take } \epsilon_0=2. \text{ Then } \forall N \in \mathbb{N}, \text{ taking } n = 2N + 1, \text{ then } n \geq N \\
+            & \implies |x_n-x|=|0-x|=|x| \geq \epsilon_o
+        \end{align*}
+        Therefore, \[\text{ The series } \{1 + (-1)^n \} \text{ is divergent in } \mathbb{R}\]
+        \end{proof}
+        Some analysis on the result:
+        \[\{1 + (-1)^n \} = 0,2,0,2,0,\dots \text{ for infinity, hence is divergent. }\]
+        \[\text{ Recall: } \{x_n\} \text{ is divergent in } \mathbb{R}:\forall x \in \mathbb{R}, x_n \not \to x\]
+        \[\text{ i.e., } \forall x \in \mathbb{R}, \exists\epsilon_0 >0, \forall N \in \mathbb{N}, \exists n \geq N, |x_n-x| \geq \epsilon_0\]
+        \end{enumerate}
+
+\subsection{Assignment 4: Question \#8}
+\textbf{Question:} Let \(\{x_n\} \text{ and } \{y_n\}\) be sequences in \(\mathbb{R}\) such that \(\{x_n\}\) is bounded and \(y_n \rightarrow 0\). Prove that \(x_ny_n \rightarrow 0\).
+\begin{proof}
+    \begin{align*}
+    & \implies \text{Since } \{x_n\} \text{ is bounded, there exists } M > 0 \text{ such that } |x_n| \leq M \text{ for all } n \in \mathbb{N} \\
+        & \implies \text{Given } \epsilon > 0. \text{ Since } y_n \to 0, \\
+        & \implies \exists N \in \mathbb{N}, \forall n \geq N, |y_n-0| < \frac{\epsilon}{M} \\
+        & \implies \text{Then } \forall n \geq N, \text{ we have} \\
+        & \implies |x_ny_n-0|=|x_n||y_n| \leq M|y_n|<M\times \frac{\epsilon}{M}=\epsilon 
+    \end{align*}
+    Therefore, \[\lim_{n \to \infty } x_ny_n=0\]
+\end{proof}
+\noindent Some analysis on \(|x_n y_n - 0| < \epsilon\) for \(n \geq N\):
+\[\text{(Boundedness): } \exists M > 0 \text{ such that } \forall n \in \mathbb{N}, \ |x_n| \leq M.\]
+\[|x_n y_n - 0| = |x_n||y_n| \leq M|y_n|.\]
+Since \(y_n \to 0\), for any \(\epsilon > 0\) there exists \(N \in \mathbb{N}\) such that for all \(n \geq N,\)
+\[|y_n| < \frac{\epsilon}{M}.\]
+Therefore, \[|x_n y_n - 0| \leq M|y_n| < M \cdot \frac{\epsilon}{M} = \epsilon.\]
+This satisfies the definition of the limit:
+\[\forall \epsilon > 0, \ \exists N \in \mathbb{N} \text{ such that } n \geq N \implies |x_n y_n - 0| < \epsilon.\]
+
+\subsection{Assignment 5: Question \#1(i)(ii)}
+\begin{enumerate}
+    \item \[\lim_{n \to \infty} (\sqrt{n^2+2n} - n) = 1\]
+    \begin{proof}
+        \begin{align*}
+            & \implies \text{Given } \epsilon > 0, \text{ choose } N = \Bigg[\frac{1}{\epsilon}\Bigg]+1 \text{ (integer part)} \\
+            & \implies \text{Then, } N > \frac{1}{\epsilon} \implies \frac{1}{N} < \epsilon \\
+            & \implies \text{For } n \in \mathbb{N}, \text{ we have } x_n=\sqrt{n^2+2n}-n \\
+        \end{align*}
+        Rationalizing,
+        \[x_n=\frac{(\sqrt{n^2+2n}-n)(\sqrt{n^2+2n}+n)}{\sqrt{n^2+2n}+n}=\frac{2n}{\sqrt{n^2+2n}+n}\]
+        Dividing the numerator and denominator by n,
+        \[x_n=\frac{2}{\sqrt{1+\frac{2}{n}}+1}\]
+        Then,
+        \[|x_n-1|=\Bigg|\frac{2}{\sqrt{1+\frac{2}{n}}+1}-1\Bigg|=\frac{\Big|1-\sqrt{1+\frac{2}{n}}\Big|}{\sqrt{1+\frac{2}{n}}+1}\]
+        For the denominator, since \(n > 0\),
+        \[\sqrt{1+\frac{2}{n}}+1 > 2\]
+        For the numerator,
+        \[\Big|1-\sqrt{1+\frac{2}{n}}\Big|=\frac{\frac{2}{n}}{1+\sqrt{1+\frac{2}{n}}}<\frac{\frac{2}{n}}{n}=\frac{1}{n}\]
+        So substituting these in, we get
+        \[|x_n-1|=\frac{\Big|1-\sqrt{1+\frac{2}{n}}\Big|}{\sqrt{1+\frac{2}{n}}+1}<\frac{\frac{1}{n}}{2}<\frac{1}{n}\]
+        For \(n \geq N\),
+        \[|x_n-1|<\frac{1}{n}\leq \frac{1}{N}<\epsilon\]
+        Therefore, \[\lim_{n \to \infty} (\sqrt{n^2+2n} - n) = 1\]    
+    \end{proof}
+    \item \[\text{The sequence } \{n(-1)^{n-1}\} \text{ is divergent in } \mathbb{R}\]
+    \begin{proof}
+    Assume that the sequence \(\{x_n\}\) converges to \(M\). By the \(\epsilon\)-\(N\) definition of convergence, we have
+    \[\forall \epsilon > 0, \exists N \in \mathbb{N} \text{ such that for all } n \geq N, |x_n - M| < \epsilon\]
+    The series terms are as follows,
+    \[x_1=1, x_2=-2, x_3=3, x_4=-4, \dots \text{ (alternating in sign and magnitude infinitely)}\]
+    Take \(\epsilon=1\). For any \(N \in \mathbb{N}\), \(x_{2N}=-2N\) and \(x_{2N+1}=2N+1\).
+    Then,
+    \[|x_{2N+1}-x_{2N}|=|(2N+1)-(-2N)|=4N+1>1=\epsilon\]
+    Thus, for all \(N\), there exists some \(n \geq N\) such that \(|x_n-M| \geq \epsilon\), which is a contradiction.
+    \[\text{Therefore, the sequence } \{n(-1)^{n-1}\} \text{ is divergent in } \mathbb{R}\]       
+    \end{proof}
+\end{enumerate}
+
+\subsection{Chapter 2: the proof of Theorem 9}
+\begin{theorem*}
+    Let \(K\) be a compact set in metric space \(X\) and let \(F\) be a closed subset of \(K\). Then \(F\) is compact.
+\end{theorem*}
+\begin{proof}
+    Let \(\{G_{\alpha}\}\) be an open cover of \(F\). Then \(\{X-F\}\cup\{G_{\alpha}\}\) is an open cover of \(K\). Since \(K\) is compact, \(\exists \alpha_1, \dots, \alpha_n\) such that 
+    \[K \subseteq (X-F) \cup (G_{\alpha} \cup \dots \cup G_{{\alpha}_n}).\]
+    Now \(F = F \cap K \subseteq (F \cap (X-F))\cup (G_{{\alpha}_1} \cup \dots \cup G_{{\alpha}_n})=G_{{\alpha}_1}\cup \dots \cup G_{{\alpha}_n}\). Hence, \(\{G_{\alpha}\}\) has a finite subcover \(\{G_{{\alpha}_1}, \dots, G_{{\alpha}_n}\}\) of \(F\). Therefore, \(F\) is compact.
+\end{proof}
+
+\subsection{Chapter 3: the proof of Theorem 2}
+\begin{theorem*}
+    Any convergent sequence in a metric space is bounded.
+\end{theorem*}
+\begin{proof}
+    Suppose \(x_n \rightarrow x\) in a metric space \((X,d)\). We prove that \[\exists M > 0, \forall n, x_n \in B(x,M)\]
+    \(\text{ For } \epsilon = 1, \exists N, \forall n \geq N, d(x_n,x) < 1\). Let \(M = 1+ \max\{d(x_1,x),\dots ,d(x_{N-1},x)\}.\) Then \(\forall n, \text{ we have } d(x_n,x) < M\).
+\end{proof}
+
+\subsection{Chapter 3: the proof of Theorem 3}
+\begin{theorem*}
+    (Squeeze Theorem in \(\mathbb{R}\)). Let \(\{a_n\},\{b_n\}, \text{ and }, \{c_n\}\) be sequences in \(\mathbb{R}\) such that \(a_n \rightarrow x, c_n \rightarrow x, \text{ and }, \forall n, a_n \leq b_n \leq c_n\). Then, \(b_n \rightarrow x\).
+\end{theorem*}
+\noindent \textbf{Note:} Here either \(x \in \mathbb{R}\) or \(x = \pm \infty \). We only prove the case when \(x \in \mathbb{R}\). Also, in the theorem, we can only require that \(a_n \leq b_n \leq c_n\) holds for all \(n \geq n_0\) for some \(n_0\). 
+\begin{proof}
+    Given \(\epsilon > 0\). Since \(a_n \rightarrow x\) and \(c_n \rightarrow x, \exists N_1,N_2 \in \mathbb{N}\) such that \[\forall n \geq N_1, |a_n-x|< \epsilon \text{ and } \forall n \geq N_2, |c_n - x| < \epsilon. \]
+    Let \(N = \max\{N_1, N_2\}\). Then \(\forall n \geq N\), we have \(|a_n - x| < \epsilon\) and \(|c_n-x| < \epsilon\). That is, \[x - \epsilon < a_n < x + \epsilon \text{ and } x - \epsilon < c_n < x + \epsilon\]
+    In this case, \(\forall n \geq N\), we have \(x - \epsilon < a_n \leq b_n \leq c_n < x + \epsilon\). That is, \[x - \epsilon < b_n < x + \epsilon, \text{ or } |b_n - x| < \epsilon\]
+    So, we prove that \(\forall \epsilon >0, \exists N, \forall n \geq N, |b_n - x| < \epsilon\). Therefore, \(b_n \rightarrow x\).
+\end{proof}
+
+\end{document}
