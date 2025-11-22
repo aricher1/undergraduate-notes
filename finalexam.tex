@@ -215,34 +215,76 @@ In this case, \((X,d)\) is called a \textbf{metric space}.
 
 \section{Results}
 \subsection{Chapter 3: Theorem 11}
+Let \((X,d)\) be a metric space and let \(\{x_n\}\) be a sequence in \(X\).
+\begin{enumerate}[label=(\roman*)]
+    \item If \(\{x_n\}\) is convergent, then \(\{x_n\}\) is Cauchy.
+    \item If \(\{x_n\}\) is Cauchy, then \(\{x_n\}\) is bounded.
+\end{enumerate}
 
 \subsection{Chapter 3: Theorem 14}
-
-\subsection{Chapter 3: Theorem 15}
-
-\subsection{Chapter 3: Theorem 16}
-
-\subsection{Chapter 3: Theorem 23}
-
-\subsection{Chapter 3: Theorem 24}
-
-\subsection{Chapter 3: Corollary 6}
+\textbf{(Cauchy Criterion for Series)}. Let \(\displaystyle \sum^\infty_{n=1}a_n\) be a series in \(\mathbb{R}\). Then
+\[\sum^\infty_{n=1}a_n \text{ is convergent } \iff \forall \epsilon > 0, \exists N, \forall m \geq n \geq N, \Bigg|\sum^\infty _{n=1}a_k \Bigg| < \epsilon\]
 
 \subsection{Chapter 3: Corollary 7}
+Let \(\displaystyle \sum^\infty_{n=1}a_n\) be a series in \(\mathbb{R}\). Then
+\[\sum^\infty_{n=1}a_n \text{ is divergent } \iff \exists \epsilon_0 > 0, \forall N, \exists m \geq n \geq N, \Big|\sum^m_{k=n}a_k\Big| \geq \epsilon_0\]
+Note that if \(\displaystyle \sum^\infty_{n=1}a_n\) is convergent, then \(a_n \to 0\) since 
+\[a_n = s_n - s_{n-1} \to s - s = 0\]
+Therefore, we have the following test for divergence.
+
+\subsection{Chapter 3: Theorem 15}
+\textbf{(Divergence Test)}. If \(a_n \not \to 0\), then \(\displaystyle \sum^\infty_{n=1}a_n\) is divergent.
+
+\subsection{Chapter 3: Theorem 16}
+If \(\displaystyle \sum^\infty_{n=1}a_n\) is absolutely convergent, then \(\displaystyle \sum^\infty_{n=1}a_n\) is convergent.
+
+\subsection{Chapter 3: Theorem 23}
+\textbf{(The Root Test)}. Given \(\displaystyle \sum^\infty_{n=1}a_n\) in \(\mathbb{R}\), let \(\alpha = \displaystyle \limsup_n|a_n|^{\frac{1}{n}}\). Then \(\alpha \in [0, \infty]\).
+\begin{enumerate}[label=(\roman*)]
+    \item If \(\alpha < 1\), then \(\displaystyle \sum^\infty_{n=1}|a_n|\) is convergent (and hence \(\displaystyle \sum^\infty_{n=1}a_n\) is convergent).
+    \item If \(\alpha > 1\), then \(\displaystyle \sum^\infty_{n=1}a_n\) is divergent. 
+    \item If \(\alpha=1\), then there is no conclusion.
+\end{enumerate}
+
+\subsection{Chapter 3: Theorem 24}
+\textbf{(The Ratio Test)}. Given \(\displaystyle \sum^\infty_{n=1}a_n\) in \(\mathbb{R}\).
+\begin{enumerate}[label=(\roman*)]
+    \item If \(\displaystyle \limsup_n\Big|\frac{a_{n+1}}{a_n}\Big|<1\), then \(\displaystyle \sum^\infty_{n=1}|a_n|\) is convergent (and hence \(\displaystyle \sum^\infty_{n=1}a_n\) is convergent).
+    \item If \(\displaystyle \exists n_0, \forall n \geq n_0, \Big|\frac{a_{n+1}}{a_n}\Big| \geq 1\), then \(\displaystyle \sum^\infty_{n=1}a_n\) is divergent.
+\end{enumerate}
+
+\subsection{Chapter 3: Corollary 6}
+\textbf{(Cauchy Criterion)}. Let \(\{x_n\}\) be a sequence in \(\mathbb{R}\). Then 
+\[\{x_n\} \text{ is convergent } \iff \{x_n\} \text{ is Cauchy.}\]
 
 \subsection{Chapter 3: Corollary 8}
+\textbf{(Comparison Theorem)}. Let \(\displaystyle \sum^\infty_{n=1}a_n\) and \(\displaystyle \sum^\infty_{n=1}b_n\) be nonnegative series. Suppose that \(\displaystyle \exists n_0 \in \mathbb{N}\) such that \(\displaystyle 0 \leq a_n \leq b_n\) for all \(\displaystyle n \geq n_0\).
+\begin{enumerate}[label=(\roman*)]
+    \item If \(\displaystyle \sum^\infty_{n=1}a_n\) is divergent, then \(\displaystyle \sum^\infty_{n=1}b_n\) is divergent.
+    \item If \(\displaystyle \sum^\infty_{n=1}b_n\) is convergent, then \(\displaystyle \sum^\infty_{n=1}a_n\) is convergent.
+\end{enumerate}
 
 \subsection{Chapter 4: Theorem 2}
+\textbf{(Sequential Criterion for Convergence)}. Let \((X,d_X)\) and \((Y,d_Y)\) be metric spaces, \(E \subseteq X, \ c \in E', \ f:E \to Y, \text{ and } q \in Y\). Then
+\[\lim_{x \to c}f(x)=q \iff \forall \text{ sequence } \{c_n\} \text{ in } E - \{c\}, \ c_n \to c \implies f(c_n) \to q.\]
 
 \subsection{Chapter 4: Theorem 8}
+Let \(X\) and \(Y\) be metric spaces with \(X\) compact and let \(f : X \to Y\) be continuous. Then \(f(X)\) is a compact set in \(Y\). Therefore, \(f(X)\) is bounded and closed in \(Y\).
 
 \subsection{Chapter 4: Corollary 1}
+We have
+\[f(x) \not \to q \text{ as } x \to c \iff \exists \text{ sequence } \{c_n\} \text{ in } E - \{c\} \text{ such that } c_n \to c \text{ but } f(c_n) \not \to q.\]
 
 \subsection{Chapter 4: Corollary 2}
+If there exist sequences \(\{x_n\}\) and \(\{y_n\}\) in \(E-\{c\}\) such that 
+\[x_n \to c, \ y_n \to c, \ f(x_n) \to p, \ f(y_n) \to q \text{ and } p \not = q, \text{ then } \displaystyle \lim_{x \to c}f(x) \text{ DNE.}\]
 
 \subsection{Chapter 4: Corollary 3}
+\textbf{(Sequential Criterion for Continuity)}. Let \(c \in X\). Then
+\[f: X \to Y \text{ is continuous at } c \iff \Big[c_n \to c \text{ in } X \implies f(c_n) \to f(c) \text{ in } Y \Big ].\]
 
 \subsection{Chapter 4: Corollary 7}
+If \(f:X \to Y\) is continuous, then \(\forall\) compact \(E \subseteq X, \ f(E)\) is compact.
 
 
 \section{Questions/Proofs}
@@ -259,9 +301,36 @@ In this case, \((X,d)\) is called a \textbf{metric space}.
 \subsection{Assignment 7: Question \#7}
 
 \subsection{Chapter 2: the proof of Theorem 9}
+\textbf{Theorem:} Let \(K\) be a compact set in metric space \(X\) and let \(F\) be a closed subset of \(K\). Then \(F\) is compact.
+\begin{proof}
+    Let \(\{G_\alpha \}\) be an open cover of \(F\). Then \(\{X-F\} \cup \{G_\alpha \}\) is an open cover of \(K\). Since \(K\) is compact, \(\exists \alpha_1, \dots, \alpha_n\) such that
+    \[K \subseteq (X-F) \cup \Big(G_{\alpha_1} \cup \dots \cup G_{\alpha_n}\Big).\]
+    Now \(F = F \cap K \subseteq \Big(F \cap (X-F)\Big) \cup \Big(G_{\alpha_1}\cup \dots \cup G_{\alpha_n}\Big)=G_{\alpha_1} \cup \dots \cup G_{\alpha_n}.\) Hence, \(\{G_\alpha\}\) has a finite subcover \(\{G_{\alpha_1}, \dots, G_{\alpha_n}\}\) of \(F\). Therefore, \(F\) is compact.
+\end{proof}
 
 \subsection{Chapter 3: the proof of Theorem 11}
+\textbf{Theorem:} Let \((X,d)\) be a metric space and let \(\{x_n\}\) be a sequence in \(X\).
+\begin{enumerate}[label=(\roman*)]
+    \item If \(\{x_n\}\) is convergent, then \(\{x_n\}\) is Cauchy.
+    \item If \(\{x_n\}\) is Cauchy, then \(\{x_n\}\) is bounded.
+\end{enumerate}
+\begin{proof}
+    \begin{enumerate}[label=(\roman*)]
+        \item Suppose \(x_n \to x.\) Then \(\forall \epsilon > 0, \exists N, \forall n \geq N,  d(x_n,x) < \frac{\epsilon}{2}\), and thus \(\forall m, n \geq N,\) we have
+        \[d(x_m,x_n) \leq d(x_m,x) + d(x,x_n)=d(x_m,x)+d(x_n,x) < \epsilon.\]
+        Therefore, \(\{x_n\}\) is Cauchy.
+        \item Suppose \(\{x_n\}\) is Cauchy. For \(\epsilon = 1, \exists N,\ \forall m,  n \geq N,  d(x_m,x_n) < \epsilon\). Let \(x=x_N\) and \(r=1+\displaystyle \max_{1 \leq i \leq N} d(x_i,x)\). Then \(d(x_n,x) < r\) for all \(n\); that is, \(\ \{x_n\}\) is in the ball \(B(x,r)\). Therefore, \(\ \{x_n\}\) is bounded.
+    \end{enumerate}
+\end{proof}
 
 \subsection{Chapter 4: the proof of Theorem 8}
+\textbf{Theorem:} Let \(X\) and \(Y\) be metric spaces with \(X\) compact and let \(f : X \to Y\) be continuous. Then \(f(X)\) is a compact set in \(Y\). Therefore, \(f(X)\) is bounded and closed in \(Y\).
+\begin{proof}
+    Let \(\mathcal{U}\) be an open cover of \(f(X)\) in \(Y\); that is, \(\mathcal{U}\) is a family of open sets on Y such that \(f(X) \subseteq \displaystyle \bigcup_{U \in \ \mathcal{U}}U.\) Then
+    \[X \subseteq f^{-1} \Big( \bigcup_{U \in \ \mathcal{U}}U \Big)=\bigcup_{U \in \ \mathcal{U}}f^{-1}(U)\]
+    with each \(f^{-1}(U)\) open in \(X\) (since f is continuous). Thus \(\Big \{f^{-1}(U):U \in \mathcal{U} \Big\}\) is an open cover of \(X\). By the compactness of \(X, \exists U_1, \dots, U_n \in \mathcal{U}\) such that \(\displaystyle X= \bigcup^n_{k=1}f^{-1}(U_k)\). Hence,
+    \[f(X)=f\Big(\bigcup^n_{k=1}f^{-1}(U_k)\Big)=\bigcup^n_{k=1}f(f^{-1}(U_k)) \subseteq\bigcup^n_{k=1}U_k.\]
+    So, \(\mathcal{U}\) has a finite subcover of \(f(X)\). Therefore, \(f(X)\) is compact.
+\end{proof}
 
 \end{document}
