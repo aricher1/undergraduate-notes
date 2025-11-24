@@ -1,0 +1,317 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm} 
+\usepackage{graphicx} 
+\usepackage{mathtools}
+\usepackage{booktabs} 
+\usepackage{hyperref} 
+\usepackage{enumitem}
+\usepackage{fancyhdr} 
+\usepackage{xcolor} 
+
+% Custom styles
+\theoremstyle{definition}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem*{law*}{Law}
+\newtheorem*{corollary*}{Corollary}
+\newtheorem{definition*}{Definition}
+\newenvironment{solution*}{\par\noindent\textbf{Solution.}\ }{\hfill$\square$\par}
+\pagestyle{fancy}
+\fancyhf{}
+
+\lhead{STAT-2920 Review}
+\rhead{Aidan Richer}
+\cfoot{\thepage}
+
+% Document info
+\title{\textbf{STAT-2920 Intro to Probability Review}}
+\author{Aidan Richer}
+\date{November 2025}
+
+% Start of document
+\begin{document}
+
+\maketitle
+\noindent \textbf{This paper contains a cumulative review of all definitions, theorems, and proofs within the lecture notes, excluding any examples.}
+\tableofcontents
+\bigskip
+
+\section{Chapter 1: Combinatorial Analysis}
+
+\subsection{The Basic Principle of Counting}
+\begin{theorem*}
+    \textit{Suppose that two experiments are to be performed. Then if experiment 1 can result in any one of \(m\) possible outcomes and if, for each outcome of experiment 1, there are \(n\) possible outcomes of experiment 2, then together there are \(m \times n\) possible outcomes of the two experiments.}
+\end{theorem*}
+
+\subsection{Permutations}
+Frequently, we are interested in situations where the outcomes are the different ways in which a group of objects can be ordered or arranged. Different arrangements like these are called \underline{permutations}. 
+\begin{definition*}
+    A permutation is a distince arrangement of \(n\) different elements of a set.
+\end{definition*}
+
+\begin{theorem*}
+    \textit{The number of permutations of \(n\) distinct objects taken \(r\) at a time is
+    \[\mathrm{P}^n_r=\frac{n!}{(n-r)!}\]
+    for \(r=1,2,\dots,n\)}
+\end{theorem*}
+
+\begin{theorem*}
+    \textit{The number of permutations of \(n\) objects of which \(n_1\) are of one kind, \(n_2\) are of a second kind, \(\dots, n_k\) are of a \(k^{th}\) kind, and \(n_1+n_2+\dots+n_k= n\) is \[\frac{n!}{n_1!\times n_2! \times \dots \times n_k!}\]}
+\end{theorem*}
+
+\subsection{Combinations}
+\begin{definition*}
+    A combination is a selection og \(r\) objects taken from \(n\) distincy objects without regard to the order of selection.
+\end{definition*}
+
+\begin{theorem*}
+    \textit{The number of combinations of \(n\) distinct objects taken \(r\) at a time is \[\mathrm{C}^n_r = \binom{n}{r}= \frac{n!}{r!(n-r)!}\]
+    for \(r=0,1,2,\dots, n\)}
+\end{theorem*}
+
+\begin{theorem*}
+    \textit{The number of ways in which a set of 
+    \(n\) distinct objects can be partitioned into \(k\) subsets with \(n_1\) objects in the first subset, 
+    \(n_2\) objects in the second subset, \(\dots\), and \(n_k\) objects in the \(k^{th}\) subset is
+    \[\binom{n}{n_1,n_2,\dots, n_k}=\frac{n!}{n_1! \times n_2! \times \dots \times n_k!}, \ \ n=n_1+n_2+\dots +n_k\]}
+\end{theorem*}
+
+\subsection{Binomial Coefficients}
+\begin{definition*}
+    The coefficient of \(x^{n-r}y^r\) in the binomial expansion of \((x+y)^n\) is called the binomial coefficient \(\binom{n}{r}\).
+\end{definition*}
+
+\begin{theorem*}
+    \[(x+y)^n=\sum^n_{r=0}\binom{n}{r}x^{n-r}{y^r}\]
+    \textit{for any positive integer n.}
+\end{theorem*}
+
+The calculation of binomial coefficients can often be simplified by making use of the three theorems that follow.
+\begin{theorem*}
+    \textit{For any positive integers \(n\) and \(r=0,1,2,\dots, n,\)
+    \[\binom{n}{r}=\binom{n}{n-r}\]}
+\end{theorem*}
+
+\begin{theorem*}
+    \textit{For any positive integer \(n\) and \(r=1,2,\dots, n-1,\) we have
+    \[\binom{n}{r}=\binom{n-1}{r}+ \binom{n-1}{r-1} \]}
+\end{theorem*}
+
+\begin{theorem*}
+    \[\sum^k_{r=0} \binom{m}{r}\binom{n}{k-r}=\binom{m+n}{k}\]
+\end{theorem*}
+
+\section{Chapter 2: Probability}
+\subsection{Review of Set Theory}
+\begin{definition*}
+    A \underline{set} is an unordered collection of objects called elements of the set.
+\end{definition*}
+
+\begin{definition*}
+    Two sets are equal if they contain exactly the same elements. We say
+    \[a \in \mathcal{A} \text{ means that element } a \text{ belongs to the set } \mathcal{A}\]
+    \[a \not \in \mathcal{A} \text{ means the element } a \text{ does not belong to the set } \mathcal{A}\]
+    \[|\mathcal{A}| \text{ means the size, or the cardinality of a set } \mathcal{A}\]
+\end{definition*}
+
+\begin{definition*}
+    A set \(A\) is a subset of a set \(B\) if every element of \(A\) is also an element of \(B\). We write
+    \[A \subseteq B\] If \(A\) is not a subset of \(B\), we write
+    \[A \not \subseteq B\]
+\end{definition*}
+
+\begin{definition*}
+    \(S = \Omega\) is the universal set i.e. the collection of all points of interest for the present situation. The empty set, denoted \(\emptyset\) is the set with no elements.
+\end{definition*}
+
+\begin{law*}[Commutative Laws]
+    \[A \cup B = B \cup A\]
+    \[A \cap B= B \cap A\]
+\end{law*}
+\begin{law*}[Associative Laws]
+    \[(A\cup B)\cup C=A\cup (B \cup C)\]
+    \[(A\cap B) \cap C=A\cap (B \cap C)\]
+\end{law*}
+\begin{law*}[Distributive Laws]
+    \[(A\cup B)\cap C = (A \cap C) \cup (B \cap C)\]
+    \[(A \cap B) \cup C = (A \cup C) \cap (B \cup C)\]
+\end{law*}
+\begin{law*}[Basic Sample Space Laws]
+    \[A \cap A^C= \emptyset\]
+    \[A \cup A^C = S\]
+\end{law*}
+\begin{law*}[De Morgan's Laws]
+    \[(A \cup B)^C = A^C \cap B^C\]
+    \[(A \cap B)^C = A^C \cup B^C\]
+\end{law*}
+\begin{figure}[h!]
+    \centering
+\includegraphics[width=0.8\textwidth]{Screenshot 2025-11-24 at 3.02.29 PM.png}
+\end{figure}
+
+\subsection{The Probability of an Event}
+\begin{theorem*}
+    \textit{If \(A\) is an event in a discrete sample space \(S\), then \(\mathbb{P}(A)\) equals the sum of the probabilities of the individual outcomes comprising \(A\).}
+\end{theorem*}
+
+\begin{theorem*}
+    \textit{If an experiment can result in any one of \(N\) different equally likely outcomes, and if \(n\) of these outcomes together constitute event \(A\), then the probability of event \(A\) is
+    \[\mathbb{P}(A) = \frac{n}{N}\]}
+\end{theorem*}
+
+\subsection{Properties of Probability in Sets}
+\begin{theorem*}[Properties]
+    \textit{A probability \(\mathbb{P}\) satisfies the following properties:}
+    \begin{enumerate}
+        \item \textit{For each event \(A, \ \mathbb{P}(A^C)=1-\mathbb{P}(A)\)}
+        \item \textit{The probability of the null set is zero; that is, \(\mathbb{P}(\emptyset) = 0\)}
+        \item \(\mathbb{P}(A) \leq \mathbb{P}(B)\) whenever \(A \subset B\)
+        \item \textit{For each \(A, \ 0 \leq \mathbb{P}(A) \leq 1\)}
+    \end{enumerate}
+\end{theorem*}
+
+\begin{theorem*}
+    \textit{For any events \(A\) and \(B\), we have
+    \[\mathbb{P}(A \cup B) = \mathbb{P}(A) + \mathbb{P}(B) - \mathbb{P}(A \cap B)\]}
+\end{theorem*}
+
+\begin{theorem*}
+    \textit{If \(A, B\) and \(C\) are any three events in a sample space \(S\), then
+    \[\mathbb{P}(A\cup B \cup C) = \mathbb{P}(A) + \mathbb{P}(B) +\mathbb{P}(C) -\mathbb{P}(A \cap B) - \mathbb{P}(A \cap C) -\mathbb{P}(B \cap C) + \mathbb{P}(A \cap B \cap C)\]}
+\end{theorem*}
+
+\subsection{Conditional Probability}
+\begin{definition*}
+    If \(A\) and \(B\) are any two events in a sample space \(S\) and \(\mathbb{P}(A)>0\), the conditional probability of \(B\) given \(A\) is
+    \[\mathbb{P}(B \mid A)= \frac{\mathbb{P}(A\cap B)}{\mathbb{P}(B)}\]
+\end{definition*}
+
+\begin{theorem*}
+    \textit{If \(A\) and \(B\) are any two events in a sample space \(S\) and \(\mathbb{P}(A) \not = 0\), then 
+    \[\mathbb{P}(A\cap B) = \mathbb{P}(A) \cdot \mathbb{P}(B \mid A)\]}
+\end{theorem*}
+
+\begin{theorem*}
+    \textit{If \(A, B\), and \(C\) are any three event in a sample space \(S\) such that \(\mathbb{P}(A \cap B) \not = 0\), then 
+    \[\mathbb{P}(A \cap B \cap C) = \mathbb{P}(A) \cdot \mathbb{P}(B \mid A) \cdot \mathbb{P}(C \mid A \cap B)\]}
+\end{theorem*}
+
+\subsection{Independent Events}
+\begin{definition*}
+    Two events \(A\) and \(B\) are \underline{independent} if and only if
+    \[\mathbb{P}(A \cap B) = \mathbb{P}(A) \cdot \mathbb{P}(B)\]
+\end{definition*}
+
+\begin{theorem*}
+    \textit{If \(A\) and \(B\) are independent, then \(A\) and \(B^C\) are also independent.}
+\end{theorem*}
+
+\begin{definition*}
+    Events \(A_1,A_2,\dots,A_k\) are independent if and only if the probability of the intersections of any \(2, 3, \dots\), or \(k\) of these events equals the product of their respective probabilities. For three events, \(A, B\), and \(C\), for example, independence requires that
+    \[\mathbb{P}(A \cap B) = \mathbb{P}(A) \cdot \mathbb{P}(B)\]
+    \[\mathbb{P}(A \cap C) = \mathbb{P}(A) \cdot \mathbb{P}(C)\]
+    \[\mathbb{P}(B \cap C) = \mathbb{P}(B) \cdot \mathbb{P}(C)\]
+    \[\mathbb{P}(A \cap B \cap C) = \mathbb{P}(A) \cdot \mathbb{P}(B) \cdot \mathbb{P}(C)\]
+\end{definition*}
+
+\subsection{Law of Total Probability}
+\begin{theorem*}
+    \textit{If the events \(B_1, B_2, \dots\), and \(B_k\) constitute a partition of the sample space \(S\) and \(\mathbb{P}(B_i) \not = 0\) for \(i = 1, 2, \dots, k\), then for any event \(A\) in \(S\)
+    \[\mathbb{P}(A) = \sum^k_{i=1}\mathbb{P}(A \cap B_i)=\sum^k_{i=1}\mathbb{P}(B_i) \cdot \mathbb{P}(A \mid B_i)\]}
+\end{theorem*}
+
+\subsection{Bayes' Theorem}
+\begin{theorem*}
+    \textit{If the events \(B_1, B_2, \dots\), and \(B_k\) constitute a partition of the sample space \(S\) and \(\mathbb{P}(B_i) \not = 0\) for \(i=1,2,\dots, k\), then for any event \(A\) in \(S\), such that \(\mathbb{P}(A) \not = 0\)
+    \[\mathbb{P}(B_r \mid A) = \frac{\mathbb{P}(B_r)\cdot \mathbb{P}(A \mid B_r)}{\displaystyle \sum^k_{i=1}\mathbb{P}(B_i)\cdot \mathbb{P}(A \mid B_i)}\]
+    for \(r = 1, 2, \dots, k\)}
+\end{theorem*}
+
+\begin{figure}[h!]
+    \centering
+\includegraphics[width=0.8\textwidth]{Screenshot 2025-11-24 at 3.30.24 PM.png}
+\end{figure}
+
+\newpage
+\section{Chapter 3: Probability Distribution and Probability Density}
+\subsection{Random Variables}
+In this chapter, random variables are denoted by capital letters and their values by the corresponding lowercase letter. For instance, we shall write \(x\) to denote a value of the random variable \(X\).
+\begin{definition*}
+    If \(S\) is a sample space with a probability measure and \(X\) is a real-valued function defined over the elements of \(S\), then \(X\) is called a \underline{random variable}.
+\end{definition*}
+
+\begin{definition*}
+    \(X\) is a discrete random variable if its range is finite or countable infinite.
+\end{definition*}
+
+\subsection{Probability Mass Function}
+\begin{definition*}[Probability Distribution]
+    If \(X\) is a discrete random variable, the function given by \(f(x)=P(X=x)\) for each \(x\) within the range of \(X\) is called the \underline{probability distribution} of \(X\). \(f(x)\) is also called the probability mass function (pmf).
+\end{definition*}
+
+\begin{theorem*}
+    \textit{A function can serve as the probability distribution of a discrete random variable \(X\) if and only if its values, \(f(x)\), satisfy the conditions:}
+    \begin{enumerate}
+        \item \(f(x) \geq 0\) \textit{for each value within its domain.}
+        \item \(\displaystyle \sum _x f(x) = 1\), \textit{where the summation extends over all the values within its domain.}
+    \end{enumerate}
+\end{theorem*}
+
+\subsection{Cumulative Distribution Function}
+\begin{definition*}
+    If \(X\) is a discrete random variable, the function given by
+    \[F(x)=\mathbb{P}(X \leq x) = \sum_{t \leq x}f(t) \ \ \ \ \text{ for } -\infty < x < \infty\]
+    where \(f(t)\) is the value of the probability distribution of \(X\) at t, is called the \underline{distribution function}, or the \underline{cumulative distribution function (cdf)} of \(X\).
+\end{definition*}
+
+\begin{theorem*}
+    \textit{The values \(F(x)\) of the distribution function of a discrete random variable \(X\) satisfy the conditions}
+    \begin{enumerate}
+        \item \(F(-\infty)=0\) \textit{and} \(F(\infty)=1\)
+        \item \textit{if} \(a < b\), \textit{then} \(F(a) \leq F(b)\) \textit{for any real numbers} \(a\) and \(b\).
+    \end{enumerate}
+\end{theorem*}
+
+\begin{theorem*}
+    \textit{If the range of a random variable \(X\) consists of the values \(x_1 < x_2< x_3 < \dots < x_n\), then \(f(x_1)=F(x_1)\) and
+    \[f(x_i)=F(x_i)-F(x_{i-1}) \ \ \ \ \text{for } i = 2,3,4,\dots , n\]}
+\end{theorem*}
+
+\subsection{Probability Density Functions}
+\begin{definition*}
+    A function with values \(f(x)\), defined over the set of all real numbers, is called a probability density function (pdf) of the continuous random variable \(X\) if and only if
+    \[\mathbb{P}(a \leq X \leq b) = \int^b_af(x)dx\]
+    for any real constants \(a\) and \(b\) with \(a \leq b\).
+\end{definition*}
+
+\begin{theorem*}
+    \textit{If \(X\) is a continuous random variable and \(a\) and \(b\) are real constants with \(a \leq b\), then}
+    \[\mathbb{P}(a \leq X \leq b) = \mathbb{P}(a < X \leq b) = \mathbb{P}(a \leq X < b) = \mathbb{P}(a < X < b)\]
+\end{theorem*}
+
+\begin{theorem*}
+    \textit{A function can serve as a probability density of a continuous random variable \(X\) if its values, \(f(x)\), satisfy the conditions:}
+    \begin{enumerate}
+        \item \(f(x) \geq 0\), \textit{for} \(-\infty < x < \infty\)
+        \item \(\displaystyle \int^\infty_{-\infty} f(x)dx=1\)
+    \end{enumerate}
+\end{theorem*}
+
+\subsection{Distribution Functions}
+\begin{definition*}
+    If \(X\) is a continuous random variable and the value of its probability density at \(t\) is \(f(t)\), then the function given by
+    \[F(x)=\mathbb{P}(X \leq x) = \int^x_{-\infty}f(t)dt \ \ \ \ \  \text{ for } -\infty < x < \infty\]
+\end{definition*}
+
+\begin{theorem*}
+    \textit{If \(f(x)\) and \(F(x)\) are the values of the probability density and the distribution function of \(X\) at \(x\), then}
+    \[\mathbb{P}(a \leq X \leq b) = F(b) - F(a)\]
+    \textit{for any real constants \(a\) and \(b\) with \(a \leq b\) and}
+    \[f(x) = \frac{dF(x)}{dx}\]
+    \textit{where the derivative exists.}
+\end{theorem*}
+
+\section{Chapter 4: Mathematical Expectation}
+\section{Chapter 5: Special Probability Distributions}
+\section{Chapter 6: Special Probability Densities}
+\end{document}
