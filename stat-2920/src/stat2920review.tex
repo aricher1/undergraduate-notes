@@ -1,7 +1,8 @@
 \documentclass[12pt]{article}
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath, amssymb, amsthm} 
-\usepackage{graphicx} 
+\usepackage{graphicx}
+\usepackage{float}
 \usepackage{mathtools}
 \usepackage{booktabs} 
 \usepackage{hyperref} 
@@ -32,7 +33,7 @@
 \begin{document}
 
 \maketitle
-\noindent \textbf{This paper contains a cumulative review of all definitions, theorems, and proofs within the lecture notes, excluding any examples.}
+\noindent \textbf{This paper contains a cumulative review of all definitions and theorems within the lecture notes, excluding any examples.}
 \tableofcontents
 \bigskip
 
@@ -227,7 +228,7 @@ The calculation of binomial coefficients can often be simplified by making use o
     for \(r = 1, 2, \dots, k\)}
 \end{theorem*}
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
 \includegraphics[width=0.8\textwidth]{Screenshot 2025-11-24 at 3.30.24 PM.png}
 \end{figure}
@@ -311,7 +312,477 @@ In this chapter, random variables are denoted by capital letters and their value
     \textit{where the derivative exists.}
 \end{theorem*}
 
+\newpage
 \section{Chapter 4: Mathematical Expectation}
+\subsection{The Expected Value of a Random Variable}
+\begin{definition*}
+    Let \(X\) be a random variable. 
+    \begin{itemize}
+        \item If \(X\) is a discrete and \(f(x)\) is the value of its probability distribution at \(x\), the \underline{expected value} of \(X\) is
+        \[\mathbb{E}[X]=\sum_x x \cdot f(x)\]
+        \item If \(X\) is a continuous and \(f(x)\) is the value of its probability density at \(x\), the \underline{expected value} of \(X\) is 
+        \[\mathbb{E}[X]=\int^{+\infty}_{-\infty}x \cdot f(x)dx\]
+    \end{itemize}
+\end{definition*}
+
+\begin{theorem*}
+    \begin{itemize}
+        \item \textit{If \(X\) is a discrete random variable and \(f(x)\) is the value of its probability distribution at \(x\), the expected value of \(g(X)\) is given by}
+        \[\mathbb{E}[g(X)]=\sum_x g(x) \cdot f(x)\]
+        \item \textit{Correspondingly, if \(X\) is a continuous random variable and \(f(x)\) is the value of its probability density at \(x\), the expected value of \(g(X)\) is given by}
+        \[\mathbb{E}[g(X)]=\int^{+\infty}_{-\infty} g(x) \cdot f(x) dx\]
+    \end{itemize}
+\end{theorem*}
+
+\begin{definition*}
+    If \(X\) and \(Y\) are two random variables and \(a\) and \(b\) are any real numbers, then
+    \begin{itemize}
+        \item \(\mathbb{E}(aX + bY)=a\mathbb{E}(X)+b\mathbb{E}(Y)\)
+        \item \(Var(aX + bY) = a^2Var(X)+b^2Var(Y)+2abCov(X,Y)\)
+    \end{itemize}
+\end{definition*}
+
+\begin{theorem*}
+    \textit{If \(c_1, c_2, \dots\), and \(c_n\) are constants, then}
+    \[\mathbb{E}\Bigg[\sum^n_{i=1}c_ig_i(X) \Bigg]= \sum^n_{i=1}c_i \mathbb{E}[g_i(X)]\]
+\end{theorem*}
+
+\subsection{Moments}
+\begin{definition*}[Moment]
+    The \(r^{th}\) moment about the origin of a random variable \(X\), denoted by \(\mu_r'\), is the expected value of \(X^r\); symbolically
+    \[\mu_r'=\mathbb{E}(X^r)=\sum_x x^r \cdot f(x)\]
+    for \(r = 0,1,2,3, \dots,\) when \(X\) is discrete, and
+    \[\mu_r'= \mathbb{E}(X^r)= \int^\infty_{-\infty} x^r \cdot f(x) dx\]
+    when \(X\) is continuous.
+\end{definition*}
+
+\begin{definition*}[Mean]
+    \(\mu_1'\), is called the \underline{mean} of the distribution of \(X\), or simply the mean of \(X\), and it is denoted simply by \(\mu\).
+\end{definition*}
+
+\begin{definition*}[Moments about the mean]
+    The \(r^{th}\) moment about the mean of a random variable \(X\), denoted by \(\mu_r\), is the expected value of \((X-\mu)^r\); symbolically
+    \[\mu_r = \mathbb{E}[(X-\mu)^r]= \sum_x (x - \mu)^r \cdot f(x)\]
+    for \(r = 0,1,2,3, \dots,\) when \(X\) is discrete, and
+    \[\mu_r = \mathbb{E}[(X-\mu)^r]=\int^\infty_{-\infty}(x-\mu)^r \cdot f(x) dx\]
+    when \(X\) is continuous.
+\end{definition*}
+
+\begin{definition*}[Variance]
+    \(\mu_2\), is called the \underline{variance} of the distribution of \(X\), or simply the variance of \(X\), and it is denoted simply by \(\sigma^2,\sigma_X^2, Var(X)\), or \(V(X)\). The positive square root of the variance, \(\sigma\), is called the \underline{standard deviation} of \(X\). Mathematically, we express \(\sigma^2\) as
+    \[\sigma^2=\mu_2'-(\mu_1')^2= \mathbb{E}[X^2]-(\mathbb{E}[X])^2\]
+\end{definition*}
+
+\begin{theorem*}
+    \textit{If \(X\) has variance \(\sigma^2\), then}
+    \[Var(aX+b)=a^2Var(X)=a^2\sigma^2\]
+\end{theorem*}
+
+\subsection{Moment Generating Function}
+\begin{definition*}
+    The moment generating function of a random variable \(X\), where it exists, is given by
+    \[M_X(t)=\mathbb{E}\Big[e^{tX}\Big]=\sum_x e^{tx} \cdot f(x)\]
+    when \(X\) is discrete, and
+    \[M_X(t)=\mathbb{E}\Big[e^{tX} \Big] = \int^\infty_{-\infty} e^{tx} \cdot f(x) dx\]
+    when \(X\) is continuous.
+\end{definition*}
+
+\begin{theorem*}
+    \[\frac{d^r}{dt^r} M_X(t) = \mu_r'\]
+\end{theorem*}
+
+\begin{theorem*}
+    \textit{If \(a\) and \(b\) are constants, then}
+    \begin{enumerate}
+        \item \[M_{X+a}(t) = e^{at} \cdot M_X(t)\]
+        \item \[M_{bX}(t) = M_X(bt)\]
+        \item \[M_{\frac{X+a}{b}}(t)=\mathbb{E}\Big[e^{(\frac{X+a}{b})t} \Big] = e^{\frac{a}{b}t} \cdot M_X\Bigg(\frac{t}{b}\Bigg)\]
+    \end{enumerate}
+\end{theorem*}
+
+\newpage
 \section{Chapter 5: Special Probability Distributions}
+\subsection{Discrete Uniform Distribution}
+\begin{definition*}
+    A random variable \(X\) has a discrete uniform distribution and it is referred to as a \underline{discrete uniform random} variable if and only if its probability distribution is given by
+    \[f(x)=\frac{1}{k} \ \ \ \ \text{ for } x = x_1,x_2, \dots, x_k\]
+    where \(x_i \not = x_j\) when \(i \not = j\)
+\end{definition*}
+
+\subsection{Bernoulli Distribution}
+\begin{definition*}
+    A random variable \(X\) has a Bernoulli distribution and it is referred to as a Bernoulli random variable if and only if its probability distribution is given by
+    \[f(x; \theta ) = \theta^x(1- \theta)^{1-x} \ \ \ \  \text{ for } x = 0,1\]
+    Thus,
+    \[\mathbb{P}(X=0)=1- \theta \ \\ \text{ and } \  \mathbb{P}(X=1)= \theta\]
+    for some \(0 \leq \theta \leq 1\). We will often simply write \(X \sim \text{Ber}(\theta)\) to indicate such a random variable.
+\end{definition*}
+
+\begin{theorem*}[Properties of a Bernoulli Distribution]
+    \textit{For a Bernoulli random variable 
+    \newline \(X \sim \text{Ber}(\theta)\)}
+    \begin{itemize}
+        \item \textit{The cdf is given by}
+        \[F_X(x;\theta) = 
+        \begin{cases}
+            0 & \ x < 0 \\
+            1- \theta & 0 \leq x < 1 \\
+            1 & 1 \leq x
+        \end{cases}\]
+        \item \textit{The moment generating function is}
+        \[M_X(t)= (1 - \theta) + \theta e^t\]
+        \item \textit{Expectation is}
+        \[\mathbb{E}[X] = \theta\]
+        \item \textit{Variance is}
+        \[\mathbb{V}ar(X) = \theta (1 - \theta)\]
+    \end{itemize}
+\end{theorem*}
+
+\subsection{Binomial Distribution}
+\begin{definition*}
+    Consider \(n\) independent trials, each of which has a probability of success \(\theta\), and probability of failure \(1- \theta\). If \(X\) represents the number of successes that occur in the \(n\) trials, then \(X\) is said to be a binomial random variable with parameters \((n, \theta)\). It is denoted as 
+    \[X \sim \text{Bin}(n, \theta)\]
+\end{definition*}
+
+\begin{theorem*}[Properties of a Binomial Distribution]
+\textit{For a binomial random variable}
+\newline \(X \sim \text{Bin}(n, \theta)\)
+\begin{itemize}
+    \item \textit{The probability mass function is}
+    \[f(x;n, \theta) = \binom{n}{x}\theta^x(1-\theta)^{n-x} \ \ \ \ \text{for } x = 0,1,2, \dots, n\]
+    \item \textit{Moment generating function (mgf) is}
+    \[M_X(t) = (1- \theta + \theta e^t)^n\]
+    \item \textit{Expectation is}
+    \[\mathbb{E}[X] = n \theta\]
+    \item \textit{Variance is}
+    \[\mathbb{V}ar(X) = n \theta (1 - \theta)\]
+\end{itemize}
+\end{theorem*}
+
+\subsection{Negative Binominal Distribution}
+In connection with repeated Bernoulli trials, we are sometimes interested in the number of the trial on which the \(k^{th}\) success occurs.
+
+\begin{definition*}
+    Suppose that independent trials, each having probability of success \(0 < \theta < 1\), are performed until a total of \(r\) successes are accumulated. If \(X\) is the number of trials required, then \(X\) is said to be a negative binomial random variable. It is denoted as
+    \[X \sim \text{NB}(r, \theta)\]
+    The last trial must necessarily result in a success, and there must be \(r - 1\) more success in the first \(x - 1\) trials.
+\end{definition*}
+
+\begin{theorem*}[Properties of a Negative Binomial Distribution]
+\textit{For a negative binomial random variable}
+\newline \(X \sim \text{NB}(r, \theta)\)
+\begin{itemize}
+    \item \textit{The probability distribution of \(X\) is}
+    \[f(x; r, \theta) = \mathbb{P}(X=x) = \binom{x-1}{r-1}\theta^r(1- \theta )^{x-r}\]
+    \item \textit{Moment generating function (mgf) is}
+    \[M_X(t) = \Bigg(\frac{\theta e^t}{1-(1-\theta) e^t} \Bigg)^r \ \ \ \ \ \text{ for } t < -\log(1-\theta)\]
+    \item \textit{Expectation is}
+    \[\mathbb{E}[X] = \frac{r}{\theta}\]
+    \item \textit{Variance is}
+    \[\mathbb{V}ar(X) = \frac{r(1-\theta )}{\theta^2}\]
+\end{itemize}
+\end{theorem*}
+
+\subsection{Geometric Distribution}
+\begin{definition*}
+    Suppose that independent trials, each having probability of success \(0 < \theta < 1\), are performed until a success occurs. If \(X\) is the number of trials required, then \(X\) is said to have a geometric distribution. It is denoted as
+    \[X \sim \text{Geo}(\theta)\]
+\end{definition*}
+
+\begin{theorem*}[Properties of a Geometric Distribution]
+\textit{For a geometric random variable}
+\newline \(X \sim \text{Geo}(\theta)\)
+\begin{itemize}
+    \item \textit{The probability distribution of \(X\) is}
+    \[f(x; \theta) = \mathbb{P}(X=x)= \theta(1- \theta)^{x-1} \ \ \ \ \text{for } x = 1,2,3, \dots\]
+    \item \textit{Moment generating function (mgf) is}
+    \[M_X(t) = \frac{\theta e^t}{1-(1- \theta) e^t} \ \ \ \ \text{ for } t < -\ln(1-\theta)\]
+    \item \textit{Expectation is}
+    \[\mathbb{E}[X] = \frac{1}{\theta}\]
+    \item \textit{Variance is}
+    \[\mathbb{V}ar(X) = \frac{(1- \theta)}{\theta^2}\]
+    \end{itemize}    
+\end{theorem*}
+
+\subsection{Hypergeometric Distribution}
+To obtain a formula analogous to that of the binomial distribution that applies to sampling without replacement, in which case the trials are not independent, let us consider a set of \(N\) elements of which \(M\) are looked upon as successes and the other \(N-M\) as failures. As in connection with the binomial distribution, we are interested in the probability of getting \(x\) successes in \(n\) trials, but now we are choosing, without replacement, \(n\) of the \(N\) elements contained in the set.
+
+\begin{definition*}
+    A random variable \(X\) has a hypergeometric distribution and is referred to as a hypergeometric random variable if and only if its probability distribution is given by
+    \[f(x; n, N, M) = \mathbb{P}(X=x) = \frac{\binom{M}{x}\binom{N-M}{n-x}}{\binom{N}{n}}\]
+    for \(x = 0,1,2, \dots, n, \ \ \ \ x \leq M \text{ and } n-x \leq N - M\)
+\end{definition*}
+
+\begin{theorem*}[Properties of a Hypergeometric Distribution]
+\textit{For a hypergeometric random variable}
+\newline \(X \sim \text{Hypergeo}(n, N, M)\)
+\begin{itemize}
+    \item \textit{The probability distribution of \(X\) is}
+    \[f(x; n, N, M) = \mathbb{P}(X=x) = \frac{\binom{M}{x}\binom{N-M}{n-x}}{\binom{N}{n}}\]
+    for \(x = 0,1,2, \dots, n, \ \ \ \ x \leq M \text{ and } n-x \leq N - M\)
+    \item \textit{Expectation is}
+    \[\mu = \frac{nM}{N}\]
+    \item \textit{Variance is}
+    \[\mathbb{V}ar(X) = \sigma^2 = \frac{nM(N-M)(N-n)}{N^2(N-1)}\]
+\end{itemize}
+\end{theorem*}
+
+\subsection{Poisson Distribution}
+Let the discrete random variable \(X\) denote the number of times an event occurs in an interval of time (or space). Then \(X\) may be a Poisson random variable with \(x = 0,1,2, \dots\)
+
+\begin{definition*}
+    A random variable \(X\) has a Poisson distribution with parameter \(\lambda > 0\) if 
+    \[\mathbb{P}(X=x) = \frac{\lambda^x}{x!}e^{-\lambda}\]
+    for \(x = 0,1,2, \dots\) and \(\lambda > 0\). To indicate such random variable, we simply write
+    \[X \sim \text{Poisson}(\lambda)\]
+\end{definition*}
+
+\begin{theorem*}[Properties of a Poisson Distribution] \textit{For a Poisson random variable}
+\newline \(X \sim \text{Poisson}(\lambda)\)
+\begin{itemize}
+    \item \textit{The probability distribution of \(X\) is}
+    \[\mathbb{P}(X=x) = \frac{\lambda^x}{x!}e^{-\lambda}\]
+    \item \textit{Moment generating function (mgf) is}
+    \[M_X(t) = e^{\lambda(e^t-1)}\]
+    \item \textit{Expectation is}
+    \[\mathbb{E}[X] = \lambda\]
+    \item \textit{Variance is}
+    \[\mathbb{V}ar(X) = \lambda\]
+\end{itemize}
+\end{theorem*}
+
+\newpage
 \section{Chapter 6: Special Probability Densities}
+\subsection{Uniform Distribution}
+\begin{definition*}
+    A random variable \(X\) is said to be a uniform random variable over the interval \((a,b)\) if its probability density function is
+    \[f(x) =
+    \begin{cases}
+        \frac{1}{b-a} & a < x < b \\
+        0 & \text{otherwise}
+    \end{cases}\]
+    It is denoted as
+    \[X \sim \text{Unif}(a,b)\]
+    \begin{figure}[h!]
+    \centering
+\includegraphics[width=0.8\textwidth]{Screenshot 2025-11-25 at 7.43.52 PM.png}
+\end{figure}
+\end{definition*}
+
+\newpage
+\begin{theorem*}
+    \textit{The cumulative distribution function of a uniform random variable \(X\) is}
+    \[F_X(x) = 
+    \begin{cases}
+        0 & x < a \\
+        \frac{x-a}{b-a} & a \leq x < b \\
+        1 & x \geq b
+    \end{cases}\]
+\begin{figure}[h!]
+    \centering
+\includegraphics[width=0.8\textwidth]{Screenshot 2025-11-25 at 7.49.19 PM.png}
+\end{figure} 
+\end{theorem*}
+
+\begin{theorem*}[Properties of Uniform Distribution] \textit{For a Uniform random variable}
+\newline \(X \sim \text{Unif}(a,b)\)
+\begin{itemize}
+    \item \textit{Moment generating function is}
+    \[M_X(t) =
+    \begin{cases}
+        \frac{e^{tb}-e^{ta}}{t(b-a)} & t \not = 0 \\
+        1 & t = 0
+    \end{cases}\]
+    \item \textit{Expectation is}
+    \[\mathbb{E}[X] = \frac{(a+b)}{2}\]
+    \item \textit{Variance is}
+    \[\mathbb{V}ar(X) = \frac{(b-a)^2}{12}\]
+\end{itemize}    
+\end{theorem*}
+
+\subsection{Gamma Function}
+\begin{definition*}
+    Let \(\alpha > 0\), consider
+    \[\int^\infty_0 t^{\alpha-1}e^{-t}dt\]
+    One can verify that this integral converges if and only if \(\alpha > 0\). This integral is known as the Gamma function and denoted by
+    \[\Gamma(\alpha) = \int^\infty_0 t^{\alpha-1}e^{-t}dt\]
+\end{definition*}
+
+\begin{theorem*}[Properties of the Gamma Function]
+\textit{The Gamma function satisfies the following properties:}
+\begin{enumerate}
+    \item \(\Gamma(1) = 1\)
+    \item \(\Gamma(2) = 1\)
+    \item \(\Gamma(n) = (n-1)!\), for \(n \in \mathbb{N}\)
+    \item \(\Gamma(\alpha) = (\alpha - 1) \Gamma(\alpha - 1), \forall \alpha > 0\)
+    \item \(\Gamma\big(\frac{1}{2}\big) = \sqrt{\pi}\)
+\end{enumerate}
+\end{theorem*}
+
+\begin{definition*}
+    A random variable is said to have a gamma distribution with parameters \((\alpha, \beta), \alpha > 0, \beta > 0\), if its density function is given by
+    \[f(x;\alpha, \beta) =
+    \begin{cases}
+        \frac{1}{\Gamma(\alpha) \beta^\alpha}x^{\alpha-1}e^{-\frac{x}{\beta}} & x > 0 \\
+        0 & \text{otherwise}
+    \end{cases}\]
+    where \(\Gamma(\alpha)\), called the gamma function, is defined as
+    \[\Gamma(\alpha) = \int^\infty_0t^{\alpha-1}e^{-t}dt\]
+    We write \(X \sim \text{Gamma}(\alpha, \beta)\)
+    \begin{itemize}
+        \item \textit{Moment generating function (mgf) is}
+        \[M_X(t) = \frac{1}{(1-\beta t)^\alpha} \ \ \ \ \text{for } t < \frac{1}{\beta}\]
+        \item \textit{Expectation is}
+        \[\mathbb{E}[X] = \alpha \beta\]
+        \item \textit{Variance is}
+        \[\mathbb{V}ar(X) = \alpha \beta^2\]
+    \end{itemize}
+\end{definition*}
+
+\begin{theorem*}
+    \textit{Let \(X \sim \text{Gamma}(\alpha, \beta)\), then \(f(x; \alpha, \beta)\) is a well defined density, i.e.}
+    \[\int^\infty_0 \frac{1}{\Gamma(\alpha) \beta^\alpha}x^{\alpha - 1}e^{-\frac{x}{\beta}}dx = 1\]
+\end{theorem*}
+
+\subsection{Exponential Distribution}
+\begin{definition*}
+    A random variable \(X\) has an exponential distribution and it is referred to as an exponential random variable if and only if its probability density is given by
+    \[f(x; \lambda) =
+    \begin{cases}
+        \lambda e^{-\lambda x} & x > 0 \\
+        0 & \text{elsewhere}
+    \end{cases}\]
+    It is denoted as
+    \[X \sim \text{Exp}(\lambda)\]
+\end{definition*}
+
+\begin{theorem*}[Properties of the Exponential Distribution] \textit{For an exponential random variable}
+\newline \(X \sim \text{Exp}(\lambda)\)
+\begin{itemize}
+    \item \textit{Moment generating function (mgf) is}
+    \[M_X(t) = \frac{\lambda}{\lambda - t} \ \ \ \ \text{for } t < \lambda\]
+    \item \textit{Expectation is}
+    \[\mathbb{E}[X] = \frac{1}{\lambda}\]
+    \item \textit{Variance is}
+    \[\mathbb{V}ar(X) = \frac{1}{\lambda^2}\]
+\end{itemize}
+\end{theorem*}
+
+\subsection{Chi-square Distribution}
+\begin{definition*}
+    Let \(X\) follow a gamma distribution with \(\alpha = \frac{n}{2}\) and \(\beta = 2\) (i.e. \(X \sim \text{Gamma}(\frac{n}{2}, 2))\), where \(n\) is a positive integer. Then the probability density function of \(X\) is
+    \[\displaystyle f(x) =
+    \begin{cases}
+        \frac{1}{\Gamma(\frac{n}{2})2^{\frac{n}{2}}}x^{\frac{n}{2}-1}e^{-\frac{x}{2}} & x > 0 \\
+        0 & \text{otherwise}
+    \end{cases}\]
+    We say that \(X\) follows a chi-square distribution with \(n\) degrees of freedom, denoted \(X \sim X^2_n\) and read \textit{chi-square-n}.
+\end{definition*}
+
+\begin{theorem*}[Properties of a Chi-square distribution] \textit{For a Chi-square distribution}
+\newline \(X \sim X^2_n\)
+\begin{itemize}
+    \item \textit{Moment generating function (mgf) is}
+    \[M_X(t) = \frac{1}{(1-2t)^{\frac{n}{2}}}\]
+    \item \textit{Expectation is}
+    \[\mathbb{E}[X] = n\]
+    \item \textit{Variance is}
+    \[\mathbb{V}ar(X) = 2n\]
+\end{itemize}
+\end{theorem*}
+
+\subsection{Beta Distribution}
+\begin{definition*}
+    A random variable is said to have a beta distribution if its density is given by
+    \[f(x) =
+    \begin{cases}
+        \frac{1}{B(\alpha, \beta)}x^{\alpha - 1}(1-x)^{\beta - 1} & 0 \leq x \leq 1 \\
+        0 & \text{otherwise}
+    \end{cases}\]
+    where \(\alpha, \beta > 0\), and
+    \[B(\alpha, \beta) = \int^1_0x^{\alpha - 1}(1-x)^{\beta - 1}dx\]
+    is the Beta function. We write \(X \sim \text{Beta}(\alpha, \beta)\) to indicate such distribution.
+\end{definition*}
+
+\begin{theorem*}[Relationship between Beta and Gamma functions]
+\textit{We have,}
+\[B(\alpha, \beta) = \frac{\Gamma(\alpha) \Gamma(\beta)}{\Gamma(\alpha + \beta)}\]
+\end{theorem*}
+
+\begin{theorem*}[Properties of a Beta distribution]
+    \textit{For a Beta distribution, we have}
+    \newline \(X \sim \text{Beta}(\alpha, \beta)\)
+    \begin{itemize}
+        \item
+        \[\mathbb{E}\Big[X^k \Big] = \frac{B(\alpha + k, \beta)}{B(\alpha, \beta)}, \ \ \ \ \ k > - \alpha\]
+        \item \textit{Moment generating function (mgf) is}
+        \[M_X(t) = 1 + \sum^\infty_{k=1}\Bigg( \prod^{k-1}_{r=0} \frac{\alpha + r}{\alpha + \beta + r} \Bigg ) \frac{t^k}{k!}\]
+        \item \textit{Expectation is}
+        \[\mathbb{E}[X] = \frac{\alpha}{\alpha + \beta}\]
+        \item \textit{Variance is}
+        \[\mathbb{V}ar(X) = \frac{\alpha \beta}{(\alpha + \beta)^2 (\alpha + \beta + 1)}\]
+    \end{itemize}
+\end{theorem*}
+
+\subsection{The Normal Distribution}
+\begin{definition*}
+    The continuous random variable \(X\) follows a \underline{normal distribution} with parameters \(\mu\) and \(\sigma\) if its probability density function is defined as:
+    \[f(x) = \frac{1}{\sigma \sqrt{2 \pi}}\exp \Bigg\{-\frac{1}{2}\Big(\frac{x - \mu}{\sigma}\Big )^2 \Bigg \}\]
+    for \(- \infty < x < \infty, - \infty < \mu < \infty, 0 < \sigma < \infty\). We denote \(X \sim \mathcal{N}(\mu, \sigma^2)\) to indicate such distribution.
+\end{definition*}
+
+\begin{theorem*}[Properties of a Normal distribution]
+\textit{Let \(X \sim \mathcal{N}(\mu, \sigma^2)\), then}
+\begin{itemize}
+    \item \textit{A well defined pdf \(f_X\) is}
+    \[\int^\infty_{- \infty} \frac{1}{\sqrt{2 \pi \sigma^2} } \exp \Bigg(- \frac{(x - \mu)^2}{2 \sigma^2} \Bigg) dx = 1\]
+    \item \textit{Expectation is}
+    \[\mathbb{E}[X] = \mu\]
+    \item \textit{Variance is}
+    \[\mathbb{V}ar(X) = \sigma^2\]
+\end{itemize}
+\end{theorem*}
+
+\begin{theorem*}
+    \textit{If \(X \sim \mathcal{N}(\mu, \sigma^2)\), then}
+    \[Y = aX + b \sim \mathcal{N}(a \mu + b, a^2\sigma^2)\]
+    \textit{In particular, if \(Z = \frac{X - \mu}{\sigma}\), then \(Z \sim \mathcal{N}(0,1)\).}
+    \textit{The moment generating functions for each are}
+    \begin{itemize}
+        \item \textit{For \(Z \sim \mathcal{N}(0,1)\)}
+        \[M_Z(t) = \exp \Bigg(\frac{t^2}{2} \Bigg)\]
+        \item \textit{For \(X \sim \mathcal{N}(\mu, \sigma^2)\)}
+        \[M_X(t) = \exp \Bigg(\mu t + \frac{\sigma^2 t^2}{2} \Bigg)\]
+    \end{itemize}
+\end{theorem*}
+
+\subsection{Normal Distribution to Other Distributions}
+\begin{theorem*}[Normal distribution to Chi-square distribution]
+    \textit{If \(X\) is normally distributed with mean \(\mu\) and variance \(\sigma^2 > 0\), then}
+    \[U = \Bigg( \frac{X - \mu}{\sigma} \Bigg)^2 = Z^2\]
+    \textit{is distributed as a chi-square random variable with 1 degree of freedom.}
+\end{theorem*}
+
+\begin{theorem*}[Normal approximation to Binomial distribution]
+    \textit{If \(X\) is a random variable having a binomial distribution with the parameters \(n\) and \(\theta\), then}
+    \[Z = \frac{X - n \theta}{\sqrt{n \theta(1- \theta)}}\]
+    \textit{approaches that of the standard normal distribution when \(n \to \infty\).}
+\end{theorem*}
+
+\subsection{Standard Normal Distribution Table}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{positiveztable.png}
+    \caption{Positive Standard Normal Distribution Table}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{negativeztable.png}
+    \caption{Negative Standard Normal Distribution Table}
+\end{figure}
+
+
+
+
 \end{document}
