@@ -3,7 +3,8 @@
 \usepackage{amsmath, amssymb, amsthm} 
 \usepackage{graphicx} 
 \usepackage{booktabs} 
-\usepackage{hyperref} 
+\usepackage{hyperref}
+\usepackage{multicol}
 \usepackage{enumitem}
 \usepackage{fancyhdr} 
 \usepackage{xcolor} 
@@ -238,21 +239,6 @@ Therefore, we have the following test for divergence.
 \subsection{Chapter 3: Theorem 16}
 If \(\displaystyle \sum^\infty_{n=1}a_n\) is absolutely convergent, then \(\displaystyle \sum^\infty_{n=1}a_n\) is convergent.
 
-\subsection{Chapter 3: Theorem 23}
-\textbf{(The Root Test)}. Given \(\displaystyle \sum^\infty_{n=1}a_n\) in \(\mathbb{R}\), let \(\alpha = \displaystyle \limsup_n|a_n|^{\frac{1}{n}}\). Then \(\alpha \in [0, \infty]\).
-\begin{enumerate}[label=(\roman*)]
-    \item If \(\alpha < 1\), then \(\displaystyle \sum^\infty_{n=1}|a_n|\) is convergent (and hence \(\displaystyle \sum^\infty_{n=1}a_n\) is convergent).
-    \item If \(\alpha > 1\), then \(\displaystyle \sum^\infty_{n=1}a_n\) is divergent. 
-    \item If \(\alpha=1\), then there is no conclusion.
-\end{enumerate}
-
-\subsection{Chapter 3: Theorem 24}
-\textbf{(The Ratio Test)}. Given \(\displaystyle \sum^\infty_{n=1}a_n\) in \(\mathbb{R}\).
-\begin{enumerate}[label=(\roman*)]
-    \item If \(\displaystyle \limsup_n\Big|\frac{a_{n+1}}{a_n}\Big|<1\), then \(\displaystyle \sum^\infty_{n=1}|a_n|\) is convergent (and hence \(\displaystyle \sum^\infty_{n=1}a_n\) is convergent).
-    \item If \(\displaystyle \exists n_0, \forall n \geq n_0, \Big|\frac{a_{n+1}}{a_n}\Big| \geq 1\), then \(\displaystyle \sum^\infty_{n=1}a_n\) is divergent.
-\end{enumerate}
-
 \subsection{Chapter 3: Corollary 6}
 \textbf{(Cauchy Criterion)}. Let \(\{x_n\}\) be a sequence in \(\mathbb{R}\). Then 
 \[\{x_n\} \text{ is convergent } \iff \{x_n\} \text{ is Cauchy.}\]
@@ -289,16 +275,172 @@ If \(f:X \to Y\) is continuous, then \(\forall\) compact \(E \subseteq X, \ f(E)
 
 \section{Questions/Proofs}
 \subsection{Assignment 6: Question \#1}
+\textbf{Question:} Suppose that \(a_n > 0 \ \ (n = 1,2, \dots)\).
+\begin{enumerate}[label=(\roman*)]
+    \item Prove that if \(\displaystyle \sum a_n\) is convergent, then \(\displaystyle\sum \frac{\sqrt{a_n}}{n}\) is convergent.
+    \begin{solution*}
+        \textit{Analysis on the property we will be using:}
+        \[(a-b)^2 = a^2 -2ab + b^2 \ge 0 \implies ab \le \frac{1}{2}(a^2 + b^2)\]
+    \begin{proof}
+        We have
+        \[\frac{\sqrt{a_n}}{n} = \Big(\sqrt{a_n} \Big) \Bigg(\frac{1}{n} \Bigg) \le \frac{1}{2}\Big(a_n + \frac{1}{n^2} \Big)\]
+        Since 
+        \[ \sum a_n \text{ and } \sum \frac{1}{n^2} \text{ converge} \implies \displaystyle \sum \frac{1}{2} \Big(a_n + \frac{1}{n^2} \Big) \text{ converges.} \]
+        \newline Therefore, since \(\displaystyle \sum \frac{\sqrt{a_n}}{n} \le \sum \frac{1}{2} \Big(a_n + \frac{1}{n^2} \Big)\), then \(\displaystyle \sum \frac{\sqrt{a_n}}{n}\) converges.
+    \end{proof}
+    \end{solution*}
+    \item Prove that if \(\displaystyle \sum a_n\) is divergent, then \(\displaystyle \sum \frac{a_n}{1 + a_n}\) is divergent.
+    \begin{solution*}
+        We will use the contrapositive form: 
+        \[\displaystyle \sum \frac{a_n}{1+ a_n} \text{ converges} \implies \displaystyle \sum a_n \text{ converges}\]
+        \begin{proof}
+            Assume \(\displaystyle \sum \frac{a_n}{1 + a_n}\) converges.
+            \begin{align*}
+                & \implies \lim_{n \to \infty} \frac{a_n}{1+a_n} = 0, \text{ so } \exists N, \forall n \ge N, \frac{a_N}{1+a_n} < \frac{1}{2} \\
+                & \implies 2a_n < 1 + a_n \text{ or } a_n < 1 \text{ for all } n \ge N \\
+                & \implies 1 + a_n < 2 \\
+                & \implies \frac{1}{2} < \frac{1}{1 + a_n} \\
+                & \implies \frac{1}{2}a_n < \frac{a_n}{1 + a_n}
+            \end{align*}
+            So, we have that \(\displaystyle \sum \frac{1}{2}a_n\) converges since \(\displaystyle \sum \frac{a_n}{1+ a_n}\) converges.
+            \newline Therefore, \(\displaystyle \sum a_n\) is convergent.
+        \end{proof}
+    \end{solution*}
+\end{enumerate}
 
 \subsection{Assignment 6: Question \#2}
+\textbf{Question:} Discuss the (absolute) convergence/divergence of the series \(\displaystyle \sum^\infty _{n=1}a_n\), where \(a_n\) is given by
+\begin{multicols}{2}
+\begin{enumerate}[label =(\roman*)]
+    \item \(a_n = (-1)^n \Big(1 + \frac{1}{n} \Big)\)
+    \item \(a_n = \sqrt{n + 1} - \sqrt{n}\)
+    \item \(a_n = (-1)^n \frac{1}{\sqrt{n}}\)
+    \item \(a_n = \frac{\sqrt{n+1}-\sqrt{n}}{2n}\)
+    \item \(a_n = \frac{(-1)^n}{1+x^n}, (x \geq 0)\)
+    \item \(a_n = \frac{n!}{1000^n}\)
+    \item \(a_n = \frac{n!}{n^n}\)
+    \item \(a_n = \frac{\cos n}{n^{5/4}}\)
+\end{enumerate}
+\end{multicols}
+\begin{solution*}
+    
+\end{solution*}
 
 \subsection{Assignment 7: Question \#2}
+\textbf{Question:} Use the \(\epsilon\)-\(\delta\) definition to prove that
+\begin{multicols}{3}
+\begin{enumerate}[label =(\roman*)]
+    \item \(\displaystyle \lim_{x \to 2}(x^2 - x +1) = 3\)
+    \item \(\displaystyle \lim_{x \to 0}\frac{2x}{1+ x^2} = 0\)
+    \item \(\displaystyle \lim_{x \to 1}\sqrt{x^2 + 2} = \sqrt{3}\)
+\end{enumerate}
+\end{multicols}
+\begin{solution*}
+    
+\end{solution*}
 
 \subsection{Assignment 7: Question \#5}
+\textbf{Question:} Let \(\displaystyle f(x) = \begin{cases}
+    \displaystyle x \sin\Big(\frac{1}{x}\Big) & \text{if } x \ne 0 \\
+    0 & \text{if } x = 0
+\end{cases}\)
+Use the \(\epsilon\)-\(\delta\) definition to prove that \(f : \mathbb{R} \times \mathbb{R}\) is continuous at 0.
+\begin{solution*}
+    
+\end{solution*}
 
 \subsection{Assignment 7: Question \#6}
+\textbf{Question:} Use the \(\epsilon\)-\(\delta\) definition to prove that \(f(x) = \sqrt{x}\) is continuous at every \(c \ge 0\).
+\begin{solution*}
+    To prove \(f\) is continuous at every \(c \ge 0\), let's do some analysis on \(|f(x) - f(c)|\) and relate it with \(M|x - c|\) where \(M > 0\). By doing so, we can find the proper delta to use in our formal proof.
+    \newline \textit{Analysis:}
+    \begin{align*}
+        \displaystyle |f(x)-f(c)| & = \displaystyle | \sqrt{x} - \sqrt{c} | = \begin{cases}
+            \sqrt{x} & c = 0 \\
+            \frac{1}{\sqrt{x} + \sqrt{c}}|x-c| \le \frac{1}{\sqrt{c}}|x-c| & c > 0
+        \end{cases}
+    \end{align*}
+    When \(c = 0\), we need to choose a delta such that
+    \[ \sqrt{x} = \epsilon \implies \delta = \epsilon^2\]
+    When \(c > 0\), we need to choose a delta such that
+    \[ \frac{1}{\sqrt{x} + \sqrt{c}}|x-c| \le \frac{1}{\sqrt{c}}|x-c| \implies |x-c| < \epsilon \sqrt{c} \implies \delta = \epsilon \sqrt{c}\]
+    Further expanding
+    \[|\sqrt{x} - \sqrt{c}| = \frac{|x-c|}{\sqrt{x} + \sqrt{c}}\]
+    \begin{proof}
+        Given \(\epsilon > 0\).
+        \newline \textbf{Case 1:} \(c = 0\)
+        \newline Take \(\delta = \epsilon^2\). Then \(\delta > 0\). Now,
+        \[ \forall x \in [0, \infty) \text{ with } |x-0|= x < \delta\]
+        we have
+        \[|f(x)-f(c)| = \sqrt{x} < \sqrt{\delta} = \epsilon\]
+        Therefore, \(f\) is continuous at 0.
+        \newline \textbf{Case 2:} \(c > 0\)
+        \newline Take \(\delta = \epsilon \sqrt{c}\). Then \(\delta > 0\). Now,
+        \[ \forall x \in [0, \infty) \text{ with } |x-c| < \delta\]
+        we have
+        \[|f(x)-f(c)| = |\sqrt{x} - \sqrt{c}| = \frac{1}{\sqrt{x} + \sqrt{c}}|x-c| \le \frac{1}{\sqrt{c}}|x-c| < \frac{1}{\sqrt{c}}\delta = \epsilon\]
+        Therefore, \(f\) is continuous at c.
+    \end{proof}
+\end{solution*}
 
 \subsection{Assignment 7: Question \#7}
+\textbf{Question:} Use the \(\epsilon\)-\(\delta\) definition to prove the uniform continuity of the following functions on the given intervals.
+\begin{enumerate}[label=(\roman*)]
+    \item \(\displaystyle f(x) = \frac{1}{x^2} \text{ on } [2, \infty)\)
+    \begin{solution*}
+        To prove uniform continuity of \(f\), let's do some analysis on \(|f(p) - f(q)|\) and relate it with \(M|p - q|\) where \(M > 0\). By doing so, we can find the proper delta to use in our formal proof.
+        \newline \textit{Analysis:} 
+        \begin{align*}
+            \displaystyle |f(p)-f(q)| & = \displaystyle \Big| \frac{1}{p^2} - \frac{1}{q^2} \Big| = \Big| \frac{q^2 - p^2}{p^2q^2} \Big| = \frac{(q+p)|p-q|}{p^2q^2} \\
+            & = \displaystyle \Big ( \frac{1}{p^2q^2} + \frac{1}{pq^2} \Big)|p-q| \le \Big(\frac{1}{8} + \frac{1}{8} \Big)|p-q| \text{ (since } p,q \ge 2) \\
+            & = \frac{1}{4}|p-q| < \frac{\delta}{4} = \epsilon \implies \delta = 4\epsilon
+            \end{align*}
+            Now we have found the correct delta to use in our formal proof.
+            \begin{proof}
+                Given \(\epsilon > 0\). Take \(\delta = 4\epsilon\). Then \( \delta > 0\). Now,
+                \[\forall p, q \in [2, \infty) \text{ with } |p-q| < \delta\]
+                we have
+                \[|f(p)-f(q)| = \Big(\frac{1}{p^2q} + \frac{1}{pq^2} \Big) |p-q| \le \frac{1}{4}|p-q| < \frac{\delta}{4} = \epsilon\]
+                Therefore, \(f\) is uniform continuous.
+            \end{proof}
+    \end{solution*}
+    \item \(\displaystyle f(x) = \frac{x-1}{x+1} \text{ on } [0, \infty)\)
+    \begin{solution*}
+        To prove uniform continuity of \(f\), let's do some analysis on \(|f(p) - f(q)|\) and relate it with \(M|p - q|\) where \(M > 0\). By doing so, we can find the proper delta to use in our formal proof.
+        \newline \textit{Analysis:} 
+        \begin{align*}
+            \displaystyle |f(p)-f(q)| & = \displaystyle \Big | \frac{p-1}{p+1} - \frac{q-1}{q+1} \Big | \\
+            &= \frac{2|p-q|}{(p+1)(q+1)} \le 2|p-q| < 2 \delta = \epsilon \implies \delta = \frac{\epsilon}{2}
+        \end{align*}
+        Now we have found the correct delta to use in our formal proof.
+        \begin{proof}
+            Given \(\epsilon > 0\). Take \(\delta = \frac{\epsilon}{2}\). Then \(\delta > 0\). Now,
+            \[\forall p, q \in [0, \infty) \text{ with } |p-q| < \delta\]
+            we have
+            \[\frac{2|p-q|}{(p+1)(q+1)} \le 2|p-q| < 2\delta = \epsilon\]
+            Therefore, \(f\) is uniform continuous.
+        \end{proof}
+    \end{solution*}
+    \item \(\displaystyle f(x) = \frac{x}{1+x^2} \text{ on } (-\infty, \infty)\)
+    \begin{solution*}
+        To prove uniform continuity of \(f\), let's do some analysis on \(|f(p) - f(q)|\) and relate it with \(M|p - q|\) where \(M > 0\). By doing so, we can find the proper delta to use in our formal proof.
+        \newline \textit{Analysis:} 
+        \begin{align*}
+            \displaystyle |f(p)-f(q)| & = \displaystyle \Big| \frac{p}{1+p^2} - \frac{q}{1+q^2} \Big| = \frac{|p+pq^2-q-p^2q|}{(1+p^2)(1+q^2)} = \frac{|(p-q)+pq(q-p)|}{(1+p^2)(1+q^2)} \\
+            & = \frac{|1-pq||p-q|}{1+p^2+q^2+p^2q^2} \le \frac{1 + |p||q|}{1 + p^2 + q^2 + p^2q^2}|p-q| \\
+            & \le \frac{1+\frac{1}{2}(p^2+q^2)}{1+p^2+q^2}|p-q| \le |p-q| < \delta = \epsilon \implies \delta = \epsilon
+        \end{align*}
+        Now we have found the correct delta to use in our formal proof.
+        \begin{proof}
+            Given \(\epsilon > 0\). Take \(\delta = \epsilon\). Then \(\delta > 0\). Now,
+            \[\forall p, q \in (-\infty, \infty) \text{ with } |p-q| < \delta \]
+            we have
+            \[|f(p)-f(q)| \le \frac{1 + |p||q|}{1 + p^2 + q^2 + p^2q^2}|p-q| \le |p-q| < \delta = \epsilon\]
+            Therefore, \(f\) is uniform continuous.
+        \end{proof}
+    \end{solution*}
+\end{enumerate}
+
 
 \subsection{Chapter 2: the proof of Theorem 9}
 \textbf{Theorem:} Let \(K\) be a compact set in metric space \(X\) and let \(F\) be a closed subset of \(K\). Then \(F\) is compact.
@@ -328,7 +470,7 @@ If \(f:X \to Y\) is continuous, then \(\forall\) compact \(E \subseteq X, \ f(E)
 \begin{proof}
     Let \(\mathcal{U}\) be an open cover of \(f(X)\) in \(Y\); that is, \(\mathcal{U}\) is a family of open sets on Y such that \(f(X) \subseteq \displaystyle \bigcup_{U \in \ \mathcal{U}}U.\) Then
     \[X \subseteq f^{-1} \Big( \bigcup_{U \in \ \mathcal{U}}U \Big)=\bigcup_{U \in \ \mathcal{U}}f^{-1}(U)\]
-    with each \(f^{-1}(U)\) open in \(X\) (since f is continuous). Thus \(\Big \{f^{-1}(U):U \in \mathcal{U} \Big\}\) is an open cover of \(X\). By the compactness of \(X, \exists U_1, \dots, U_n \in \mathcal{U}\) such that \(\displaystyle X= \bigcup^n_{k=1}f^{-1}(U_k)\). Hence,
+    with each \(f^{-1}(U)\) open in \(X\) (since \(f\) is continuous). Thus \(\Big \{f^{-1}(U):U \in \mathcal{U} \Big\}\) is an open cover of \(X\). By the compactness of \(X, \exists U_1, \dots, U_n \in \mathcal{U}\) such that \(\displaystyle X= \bigcup^n_{k=1}f^{-1}(U_k)\). Hence,
     \[f(X)=f\Big(\bigcup^n_{k=1}f^{-1}(U_k)\Big)=\bigcup^n_{k=1}f(f^{-1}(U_k)) \subseteq\bigcup^n_{k=1}U_k.\]
     So, \(\mathcal{U}\) has a finite subcover of \(f(X)\). Therefore, \(f(X)\) is compact.
 \end{proof}
