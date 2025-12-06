@@ -208,7 +208,7 @@ In this case, \((X,d)\) is called a \textbf{metric space}.
 
 \subsection{The \(\epsilon\)-\(\delta\) definition of uniform continuity of \(f\)}
 \begin{definition}
-    Let \((X,d_X)\) and \((Y,d_Y)\) be metric spaces, and let \(f:X\to Y\). We say that \(f\) is \underline{uniformly continuous on X} if
+    Let \((X,d_X)\) and \((Y,d_Y)\) be metric spaces, and let \(f:X\to Y\). We say that f is \underline{uniformly continuous on X} if
     \[\underline{\forall \epsilon>0, \exists \delta = \delta(\epsilon) > 0, \forall p, q \in X \text{ with } d_X(p,q) < \delta, \ d_Y(f(p),f(q)) < \epsilon}\]
     \textbf{Negation:} We say that the negation, \(f:X \to Y\) is \underline{not uniformly continuous on X} if and only if
     \[\underline{\exists \epsilon_0>0, \forall \delta > 0, \exists p, q \in X \text{ with } d_X(p,q) < \delta, \ d_Y(f(p),f(q)) \geq \epsilon_0}\]
@@ -323,7 +323,36 @@ If \(f:X \to Y\) is continuous, then \(\forall\) compact \(E \subseteq X, \ f(E)
 \end{enumerate}
 \end{multicols}
 \begin{solution*}
-    
+    \begin{enumerate}[label=(\roman*)]
+        \item We have that
+        \[|a_n| = 1 + \frac{1}{n} \to 1 \not = 0\]
+        So the terms do not go to 0, thus the series diverges immediately.
+        \item We can rewrite this as
+        \[\sqrt{n + 1} - \sqrt{n} = \frac{1}{\sqrt{n+1} + \sqrt{n}} \sim \frac{1}{2\sqrt{n}} < \frac{1}{\sqrt{n}} = \frac{1}{n^{1/2}} \text{ (divergent p-series)}\]
+        Since the corresponding p-series has \(p = \frac{1}{2} < 1\), the series is divergent.
+        \item We have
+        \[|a_n| = \frac{1}{\sqrt{n}} = \frac{1}{n^{1/2}}\]
+        Which is a divergent p-series since \(p = \frac{1}{2} < 1\). But for the alternating series test, the terms \(\to\) 0. So we can say that the series is conditionally convergent, not absolutely convergent.
+        \item We can simplify this as
+        \[\frac{\sqrt{n + 1} - \sqrt{n}}{2n} \cdot \frac{\sqrt{n + 1} + \sqrt{n}}{\sqrt{n + 1} + \sqrt{n}} = \frac{1}{2n} \cdot \frac{1}{\sqrt{n + 1} + \sqrt{n}}\]
+        Since
+        \[\frac{1}{\sqrt{n + 1} + \sqrt{n}} \sim \frac{1}{2\sqrt{n}}\]
+        We can rewrite this as
+        \[a_n \sim \frac{1}{2n} \cdot \frac{1}{2\sqrt{n}} = \frac{1}{4n^{3/2}}\]
+        Since this can be compared to the p-series with \(p = \frac{3}{2} > 1\), the series is absolutely convergent.
+        \item We have
+        \[|a_n| = \frac{1}{1+2^n} \sim \frac{1}{2^n}\]
+        Since \(\displaystyle \frac{1}{2^n}\) is a convergent geometric series with ratio \(\frac{1}{2}\), the Comparison Test shows that \(|a_n|\) also converges. So, we can say that the series is absolutely convergent.
+        \item Using the Ratio Test, we get
+        \[\Bigg|\frac{a_{n+1}}{a_n} \Bigg| = \frac{(n + 1)!}{1000^{n+1}} \cdot \frac{1000^n}{n!} = \frac{(n+1)!}{n!}\cdot 1000^{n-n-1} = (n+1) \cdot 1000^{-1} = \frac{n + 1}{1000} \to \infty > 1\]
+        So, by the Ratio Test, the series is divergent since the limit is \(>\) 1.
+        \item Using the Ratio Test, we get
+        \[\Bigg| \frac{a_{n+1}}{a_n} \Bigg| = \frac{(n+1)!}{(n+1)^{n+1}} \cdot \frac{n^n}{n!} = \frac{n + 1}{\Big(1 + \frac{1}{n} \Big)^{n+1}} \to \frac{1}{e} < 1\]
+        So, by the Ratio Test, the series is absolutely convergent since the limit is \(<\) 1.
+        \item We can compare this to
+        \[|a_n| = \frac{1}{n^{5/4}}\]
+        Which is a convergent p-series since \(p = \frac{5}{4} > 1\). So, we can say that the series is absolutely convergent.
+    \end{enumerate}
 \end{solution*}
 
 \subsection{Assignment 7: Question \#2}
@@ -336,17 +365,68 @@ If \(f:X \to Y\) is continuous, then \(\forall\) compact \(E \subseteq X, \ f(E)
 \end{enumerate}
 \end{multicols}
 \begin{solution*}
-    
+\begin{enumerate}[label=(\roman*)]
+    \item \textit{Analysis:} We start with
+        \[|(x^2 - x + 1) - 3| = |x^2 -x -2| = |(x-2)(x+1)| = |x-2|\cdot |x+1|\]
+        To control \(|x+1|\), we restrict \(x\) near 2
+        \newline Pick \(\delta \le 1\) Then
+        \[|x-2|<1 \implies 1 < x < 3 \implies |x+1| < 4\]
+        So
+        \[|(x^2 - x + 1) - 3| < 4|x-2| < \epsilon \implies |x-2| < \frac{\epsilon}{4}\]
+        So, we have found the correct delta to use in our proof \(\displaystyle \delta = \min\Big(1, \frac{\epsilon}{4}\Big)\).
+        \begin{proof}
+            Let \(\epsilon > 0\). Take \(\displaystyle \delta = \min\Big(1, \frac{\epsilon}{4}\Big)\). Then \(\delta > 0\). So we have
+            \[|f(p)-f(q)|  = |(x^2 - x + 1) - 3| = |x-2||x+1| < 4|x-2| < 4\Big(\frac{\epsilon}{4}\Big) = \epsilon\]
+            Therefore, \(\displaystyle \lim_{x \to 2}(x^2 - x +1) = 3\).
+        \end{proof}
+        \item \textit{Analysis:} We start with
+        \[\Bigg|\frac{2x}{1+x^2}\Bigg| = \frac{2|x|}{1+x^2} \le 2|x| < \epsilon \implies |x| < \frac{\epsilon}{2}\]
+        So, we have found the correct delta to use in our proof \(\displaystyle \delta = \frac{\epsilon}{2}\).
+        \begin{proof}
+            Let \(\epsilon > 0\). Take \(\delta = \frac{\epsilon}{2}\). Then \(\delta > 0\). So we have
+            \[|f(p) - f(q)| = \Bigg|\frac{2x}{1+x^2} - 0 \Bigg| = \frac{2|x|}{1+ x^2} \le 2|x| < 2 \Big(\frac{\epsilon}{2} \Big) = \epsilon\]
+            Therefore, \(\displaystyle \lim_{x \to 0}\frac{2x}{1+ x^2} = 0\).
+        \end{proof}
+        \item \textit{Analysis:} We start with 
+        \[|\sqrt{x^2 +2} - \sqrt{3}| = |\sqrt{x^2 + 2} - \sqrt{3}| \cdot \frac{\sqrt{x^2 + 2} + \sqrt{3}}{\sqrt{x^2 + 2} + \sqrt{3}} = \frac{|x^2 + 2 - 3|}{\sqrt{x^2 + 2} + \sqrt{3}} = \frac{x^2 - 1}{\sqrt{x^2 + 2} + \sqrt{3}}\]
+        \[= \frac{|x-1||x+1|}{\sqrt{x^2 + 2} + \sqrt{3}}\]
+        Choose \(\delta \le 1\) so
+        \[|x-1| < 1 \implies 0 < x < 2\]
+        Then
+        \[|\sqrt{x^2 + 2} - \sqrt{3}| = \frac{|x-1||x+1|}{\sqrt{x^2 + 2} + \sqrt{3}} < \frac{|x-1| \cdot 3}{3} = |x-1| < \epsilon \implies \delta = \min(1, \epsilon)\]
+        So, we have found the correct delta to use in our proof \(\displaystyle \delta = \min(1, \epsilon)\).
+        \begin{proof}
+            Let \(\epsilon > 0\). Take \(\delta = \min(1, \epsilon)\). Then \(\delta > 0\). So if
+            \[0 < |x-1| < \delta, \text{ then } |x + 1| < 3 \text{ and } \sqrt{x^2 + 2} + \sqrt{3} > 3\]
+            So we have
+            \[|f(p) - f(q)| = |\sqrt{x^2 + 2} - \sqrt{3}| = \frac{|x-1||x+1|}{\sqrt{x^2 + 2} + \sqrt{3}} < \frac{|x-1| \cdot 3}{3} < \epsilon\]\
+            Therefore, \(\displaystyle \lim_{x \to 1}\sqrt{x^2 + 2} = \sqrt{3}\)        
+        \end{proof}
+\end{enumerate}
 \end{solution*}
 
+\newpage
 \subsection{Assignment 7: Question \#5}
 \textbf{Question:} Let \(\displaystyle f(x) = \begin{cases}
     \displaystyle x \sin\Big(\frac{1}{x}\Big) & \text{if } x \ne 0 \\
     0 & \text{if } x = 0
 \end{cases}\)
 Use the \(\epsilon\)-\(\delta\) definition to prove that \(f : \mathbb{R} \times \mathbb{R}\) is continuous at 0.
-\begin{solution*}
-    
+\begin{solution*} 
+    \textit{Analysis:} We want to show continuity at \(x = 0\). Since \(f(0) = 0\), we need to control
+    \[|f(x) - f(0)| = |x\sin\Big(\frac{1}{x}\Big)|\]
+    Using the standard bound
+    \[|\sin \Big(\frac{1}{x} \Big)| \le 1\]
+    So
+    \[|x \sin\Big(\frac{1}{x}\Big)| \le |x| < \epsilon \implies \delta = \epsilon\]
+    So, we have found the correct delta to use in our proof \(\delta = \epsilon\).
+    \begin{proof}
+        Let \(\epsilon > 0\). Take \(\delta = \epsilon\). Then \(\delta > 0\). So if
+        \[0 < |x| < \delta\]
+        Then we have
+        \[|f(x) - f(0)| = |x \sin\Big(\frac{1}{x} \Big)| \le |x| < \epsilon\]
+        Therefore, \(f\) is continuous at 0.
+    \end{proof}
 \end{solution*}
 
 \subsection{Assignment 7: Question \#6}
