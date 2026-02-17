@@ -1,0 +1,346 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{tcolorbox}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+
+% ---------- Formatting ----------
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Linear Algebra III}
+\lhead{MATH-2251}
+\cfoot{\thepage}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue
+}
+
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+% ---------- Custom Boxes ----------
+\newtcolorbox{definitionbox}{
+    colback=blue!5,
+    colframe=blue!50!black,
+    boxrule=0.8pt,
+    arc=4pt,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt
+}
+
+\newtcolorbox{theorembox}{
+    colback=green!5,
+    colframe=green!50!black,
+    boxrule=0.8pt,
+    arc=4pt,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt
+}
+
+\newtcolorbox{formulabox}{
+    colback=gray!10,
+    colframe=black,
+    boxrule=0.5pt,
+    arc=4pt
+}
+
+% ---------- Document ----------
+\begin{document}
+
+\begin{center}
+    {\LARGE \textbf{Test 1 Review}} \\
+    \vspace{4pt}
+    MATH-2251 \\
+    Aidan Richer
+\end{center}
+
+\vspace{0.5em}
+\begin{center}
+\small This document contains all relevant definitions, theorems, and methods for Test 1 from chapters 8-10.
+\end{center}
+\vspace{1em}
+
+% ======================================================
+\section{Chapter 8: Diagonalization of Matrices}
+
+\begin{definitionbox}
+\textbf{Eigenvalues and Eigenvectors} \\
+We begin by defining the notion of an eigenvalue and an eigenvector for both linear maps and \(n \times n\) matrices.
+
+\vspace{0.1cm}
+\textbf{Def 8.1.1.} Let \(V\) be an n dimensional vector space over \(\mathbb{F}\) and let \(T : V \to V\) be a linear map.
+\begin{enumerate}
+    \item A scalar \(\lambda \in \mathbb{F}\) is said to be an \textbf{eigenvalue} of \(T\) if and only if there exists a nonzero vector \(\vec{v} \in V\), such that \[T(\vec{v}) = \lambda\vec{v}\]
+    \item Every nonzero vector \(\vec{v} \in V\) such that \(T(\vec{v}) = \lambda\vec{v}\) is said to be an \textbf{eigenvector} of \(T\) corresponding \(\lambda\) and the \(\lambda\)-eigenspace of \(T\) is defined to be \(\{\vec{v} \in V \ | \ T(\vec{v}) = \lambda\vec{v}\}\) which is simply the nullspace of \(T - \lambda I_V\). \[\mathcal{N}(T - \lambda I_V) = \{\vec{v} \in V \ | \ (T-\lambda I_V)\vec{v} = \vec{0} \}\]
+    \item The generalized \(\lambda\)-eigenspace of \(T\) is defined to be \[V_{\lambda} = \{\vec{v} \in V \ | \ \text{there exists a positive integer n with } (T - \lambda I_V)^n \vec{v} = \vec{0} \}\]
+\end{enumerate}
+
+\vspace{0.1cm}
+\textbf{Def 8.1.2.} Let \(A\) be an \(n \times n\) matrix over \(\mathbb{F}\).
+\begin{enumerate}
+    \item A scalar \(\lambda \in \mathbb{F}\) is said to be an \textbf{eigenvalue} of \(A\) if and only if there exists a nonzero vector \(\vec{v} \in \mathbb{F}^n\), such that \[A\vec{v} = \lambda \vec{v}\]
+    \item Every nonzero vector \(\vec{v} \in \mathbb{F}^n\) such that \(A \vec{v} = \lambda \vec{v}\) is said to be an \textbf{eigenvector} of \(A\) corresponding \(\lambda\) and the \(\lambda\)-eigenspace of \(A\) is defined to be \(\{\vec{v} \in V \ | \ A\vec{v} = \lambda \vec{v} \}\) which is simply the nullspace of the matrix \(\lambda I_n - A\). \[\mathcal{N}(\lambda I_n - A) = \{\vec{v} \in V \ | \ (\lambda I_n - A)\vec{v} = \vec{0} \}\]
+    \item The generalized \(\lambda\)-eigenspace of \(A\) is defined to be \[V_{\lambda} = \{\vec{v} \in V \ | \ \text{there exists a positive integer \(n\) with } (\lambda I_n - A)^n \vec{v} = \vec{0} \}\]
+\end{enumerate}
+
+\vspace{0.1cm}
+\textbf{Def 8.1.3.} 
+\begin{enumerate}
+    \item If \(V\) is a finite dimensional vector space over \(\mathbb{F}\) and \(T : V \to V\) is a linear map then \(T\) is said to be \textbf{diagonable} provided there exists a basis \(\mathcal{B}\) of \(V\) such that \([T]_{\mathcal{B}}\) is diagonal.
+    \item An \(n \times n\) matrix \(A\) over \(\mathbb{F}\) is said to be \textbf{diagonable over} \(\mathbb{F}\) provided it is similar to a diagonal matrix - i.e. there is an invertible matrix \(P \in \mathcal{M}_{n \times n}(\mathbb{F})\) such that 
+    \[
+    P^{-1}AP = 
+    \begin{bmatrix}
+        \lambda_1 & 0 & 0 \\
+        0 & \ddots & 0 \\
+        0 & 0 & \lambda_n
+    \end{bmatrix}\]
+    where \(\lambda_i \in \mathbb{F}\).
+\end{enumerate}
+\end{definitionbox}
+
+\begin{definitionbox}
+    \textbf{Eigenvalues Related to the Characteristic Polynomial}
+
+\vspace{0.1cm}
+\textbf{Def 8.3.1.} If \(A \in \mathcal{M}_{n \times n}(\mathbb{F})\) the \textbf{characteristic polynomial} of \(A\) is defined to be \[\chi_A(x) = \det(x I_n - A)\]
+\end{definitionbox}
+
+
+\begin{theorembox}
+\textbf{Theorem 8.3.1. Fundamental Theorem of Algebra} \\
+Every polynomial \(f(x) \in \mathbb{C}[x]\) has at least one root in \(\mathbb{C}\). In other words, every complex polynomial can be factored into a product of linear polynomials in \(\mathbb{C}[x]\). Alternately, the only irreducible polynomials in \(\mathbb{C}[x]\) have degree one.
+\end{theorembox}
+
+\begin{theorembox}
+\textbf{Theorem 8.5.1.} \\
+If \(A \in \mathcal{M}_{n \times n}(\mathbb{F})\) and \(\{\vec{v_1}, \dots, \vec{v_k} \}\) are eigenvectors of \(A\) corresponding to distinct eigenvalues \(\lambda_1, \dots, \lambda_k \in \mathbb{F}\), then \(\{\vec{v_1}, \dots, \vec{v_k} \}\) is linearly independent.
+\end{theorembox}
+
+\begin{theorembox}
+\textbf{Theorem 8.5.2.} \\
+If \(A \in \mathcal{M}_{n \times n}(\mathbb{F})\) and \(\lambda_1, \dots, \lambda_r \in \mathbb{F}\) are distinct eigenvalues of \(A\) then the sum of the eigenspaces 
+\[\mathcal{N}(\lambda_1 I_n - A) + \dots + \mathcal{N}(\lambda_r I_n - A)\]
+is a direct sum 
+\[\mathcal{N}(\lambda_1 I_n - A) \oplus \dots \oplus \mathcal{N}(\lambda_r I_n - A)\]
+\end{theorembox}
+
+\begin{formulabox}
+    \textbf{Diagonalizability of a Matrix} \\
+    Let \(A \in \mathcal{M}_{n \times n}(\mathbb{F})\) then \(A\) is diagonable over \(\mathbb{F}\) provided the following algorithm is successful.
+    \begin{enumerate}
+        \item Compute the characteristic polynomial: \(\chi_A(\lambda) = \det(\lambda I_n - A)\).
+        \item Factor \(\chi_A(\lambda)\) over \(\mathbb{F}\). In order for \(A\) to be diagonable over \(\mathbb{F}\), \(\chi_A(\lambda)\) must factor linearly over \(\mathbb{F}\).
+        \item For each distinct eigenvalue \(\lambda_i\) determine a basis \(\mathcal{B}_i = \{\vec{v}_{i1}, \dots , \vec{v}_{il_i} \}\) od the \(\lambda_i\) eigenspace \(\mathcal{N}(\lambda_i I_n - A)\) of \(A\).
+        \item Set 
+        \[
+        \mathcal{B} = \bigcup_{i=1}^{r} \mathcal{B}_i
+        = \{ \vec{v}_{11}, \dots, \vec{v}_{1\ell_1},
+             \vec{v}_{21}, \dots, \vec{v}_{2\ell_2},
+             \dots,
+             \vec{v}_{r1}, \dots, \vec{v}_{r\ell_r} \}.
+        \]
+        If \(\mathcal{B}\) is a basis of \(\mathbb{F}^n\), then A is diagonable and
+        \[P^{-1}AP = \begin{bmatrix}
+            \lambda_1 I_{l_i} & 0 & 0 \\
+            0 & \ddots & 0 \\
+            0 & 0 & \lambda_r I_{l_r}
+        \end{bmatrix}\]
+        where \[P = \begin{bmatrix}
+            \vec{v_{11}} & \dots & \vec{v_{1{l_i}}} & \dots  & \vec{v}_{rl_r}
+        \end{bmatrix}\]
+    \end{enumerate}
+\end{formulabox}
+
+% ======================================================
+\section{Chapter 9: Inner Product Spaces}
+
+\begin{definitionbox}
+\textbf{Def 9.1.1. Complex and Real Inner Product Spaces} \\
+A \textbf{complex} \((\mathbb{C})\) inner product space is a complex vector space \(V\) together with a map \(<\cdot, \cdot > : V \times V \to \mathbb{C}\) which satisfies the following properties:
+\begin{enumerate}
+    \item \(<\vec{v} , \vec{v} > \geq 0\) for all \(\vec{v} \in V\), and equal to \(0\) exactly when \(\vec{v} = \vec{0}\)
+    \item \(< \vec{v}, \vec{w} > = \overline{<\vec{w}, \vec{v} >}\) for all \(\vec{v}, \vec{w} \in V\)
+    \item \(< \vec{u}, \vec{v} + \vec{w} > = < \vec{u}, \vec{v}> + <\vec{u}, \vec{w}>\) for all \(\vec{u}, \vec{v}, \vec{w} \in V\)
+    \item \(< \alpha\vec{v}, \vec{w} > = \overline{\alpha} < \vec{v}, \vec{w} > = <\vec{v}, \overline{\alpha}\vec{w}> \) for all \(\vec{v}, \vec{w} \in V\) and \(\alpha \in \mathbb{C}\)
+\end{enumerate}
+
+\vspace{0.1cm}
+A \textbf{real} (\(\mathbb{R}\)) inner product space is a real vector space \(V\) together with a map \(< \cdot , \cdot > : V \times V \to \mathbb{R}\) which satisfies the following properties:
+\begin{enumerate}
+    \item \(<\vec{v} , \vec{v} > \geq 0\) for all \(\vec{v} \in V\), and equal to \(0\) exactly when \(\vec{v} = \vec{0}\)
+    \item \(< \vec{v}, \vec{w} > = \overline{<\vec{w}, \vec{v} >}\) for all \(\vec{v}, \vec{w} \in V\)
+    \item \(< \vec{u}, \vec{v} + \vec{w} > = < \vec{u}, \vec{v}> + <\vec{u}, \vec{w}>\) for all \(\vec{u}, \vec{v}, \vec{w} \in V\)
+    \item \(<r \vec{v}, \vec{w} > = r<\vec{v}, \vec{w}> = <\vec{v}, r\vec{w}>\) for all \(\vec{v}, \vec{w} \in V\) and \(r \in \mathbb{R}\)
+\end{enumerate}
+
+\end{definitionbox}
+
+\begin{definitionbox}
+\textbf{Def 9.1.2. Hermitian Conjugation} \\
+Let \(A = (a_{ij}) \in \mathcal{M}_{m \times n}(\mathbb{C})\). Then the \textbf{hermitian conjugation} of \(A\), denoted \(A^H\) or \(A^*\), is the \(n \times m\) matrix obtained from \(A\) by conjugating each entry and then taking the transpose. \(A^H = A^* = (\overline{a}_{ij})^T = (\overline{a}_{ji})\). \\
+
+The hermitian transpose satisfies the following properties:
+\begin{enumerate}
+    \item \((A + B)^H = A^H + B^H\)
+    \item \((A^H)^H = A\)
+    \item \((AB)^H = B^HA^H\)
+    \item \((\alpha A)^H = \overline{\alpha} A^H\)
+    \item \(A^H = A^T\) when \(A \in \mathcal{M}_{n \times n}(\mathbb{R})\)
+\end{enumerate}
+\end{definitionbox}
+
+\begin{definitionbox}
+\textbf{Def 9.1.4. Norm, Orthogonal, and Orthonormal Inner Product Spaces} \\
+Let \(V\) be an inner product space.
+\begin{enumerate}
+    \item The \textbf{norm} of a vector \(\vec{v} \in V\), denoted \(||\vec{v}||\), is defined to be \(\sqrt{<\vec{v}, \vec{v}>}\).
+    \item Two vectors \(\vec{v}, \vec{u} \in V\) are said to be \textbf{orthogonal} provided \(< \vec{v}, 
+    \vec{u} > = 0\).
+    \item If \(\{\vec{v_1}, \dots, \vec{v_k} \} \subseteq V\), then \(\{\vec{v_1}, \dots, \vec{v_k}\}\) is said to be an \textbf{orthogonal} set of vectors provided \(\vec{v_1}, \dots, \vec{v_k}\) are mutually orthogonal vectors - i.e. \(<\vec{v_i}, \vec{v_j} > = 0\) for \( i \not= j\) and \(\{\vec{v_1}, \dots, \vec{v_k}\}\) is orthonormal provided it is orthogonal and each \(\vec{v_i}\) is a unit vector - i.e. \(||\vec{v_i}|| = 1\).
+\end{enumerate}
+\end{definitionbox}
+
+\begin{definitionbox}
+\textbf{Def 9.1.6. Unitary and Orthogonal Matrices} \\
+An \(n \times n\) complex matrix \(U\) is said to be \textbf{unitary} provided \(U^H = U^{-1}\). An \(n \times n\) real matrix \(Q\) is said to be \textbf{orthogonal} provided \(Q^T = Q^{-1}\).
+\end{definitionbox}
+
+\begin{theorembox}
+\textbf{Theorem 9.3.1. Gram-Schmidt Orthogonalization Process} \\
+Given any linearly independent set of vectors \(\{\vec{v_1}, \dots, \vec{v_m}\}\) in an inner product space (\(V, < \cdot, \cdot >\)) there exists an orthonormal set of vectors \(\{\vec{u_1}, \dots, \vec{u_m}\}\) such that \(span\{\vec{v_1}, \dots, \vec{v_k}\} = span\{\vec{u_1}, \dots, \vec{u_k}\}\) for all \(k = 1, \dots, m\).
+\end{theorembox}
+
+\begin{formulabox}
+\textbf{GSOP Alogrithm} \\
+For practical implementations of the GSOP we often break the process into two steps.
+\begin{enumerate}
+    \item Adjust the angles - construct an orthogonal set \(\{\vec{w_1}, \dots, \vec{w_m}\}\) from \(\{\vec{v_1}, \dots, \vec{v_m}\}\) as follows.
+    \[\vec{w_1} = \vec{v_1}\]
+    \[\vec{w_2} = \vec{v_2}-\frac{<\vec{w_1}, \vec{v_2} >}{<\vec{w_1}, \vec{w_1}>}\vec{w_1}\]
+    \[\vdots\]
+    \[\vec{w_m} = \vec{v_m} - \frac{<\vec{w}_{m-1}, \vec{v}_{m} >}{<\vec{w}_{m-1}, \vec{w}_{m-1}>}\vec{w}_{m-1} - \dots - \frac{<\vec{w_1}, \vec{v_m}>}{<\vec{w_1}, \vec{w_1}>}\vec{w_1}\]
+    \item Adjust the lengths - normalize the vectors \(\vec{w}_1, \dots, \vec{w}_m\) produced in step 1 to produce an orthonormal set, \(\{\vec{u}_1, \dots, \vec{u}_m \}\) with 
+    \[\vec{u}_i = \frac{\vec{w}_i}{||\vec{w}_i||}\]
+\end{enumerate}
+\end{formulabox}
+
+\begin{definitionbox}
+\textbf{Def 9.5.1. U-perp} \\
+If \(U\) is a subspace of an inner product space \((V, < \cdot, \cdot >)\), then the \textbf{orthogonal complement} of \(U\) in \(V\), denoted \(U^{\perp}\), is defined by \[U^{\perp} = \{\vec{v} \in \mathbb{R}^n \ | \ <\vec{u}, \vec{v} > = \vec{0} \text{ for all } \vec{u} \in U \}\]
+We often read \(U^{\perp}\) as U-perp.
+\end{definitionbox}
+
+\begin{theorembox}
+\textbf{Theorem 9.5.1} \\
+Let \(U\) be a subspace of an inner product space (\(V, < \cdot, \cdot >\)). Then
+\begin{itemize}
+    \item \(U^{\perp}\) is a subspace of \(V\)
+    \item \(\dim U^{\perp} = \dim V - \dim U\)
+    \item \((U^{\perp})^{\perp} = U\)
+    \item \(V = U \oplus U^{\perp}\)
+\end{itemize}
+\end{theorembox}
+
+\begin{definitionbox}
+\textbf{Def 9.7.1 Orthogonal Projections} \\
+We define the \textbf{orthogonal projection} of \(V\) onto \(U\) to be the map \[\text{proj}_U : V \to U\] such that for any \(\vec{v} \in V\), \(\text{proj}_U(\vec{v})\) is the unique vector in \(U\) such that \(\vec{v} - \text{proj}_U(\vec{v}) \in U^{\perp}\). The \textbf{perpendicular component} of \(V\) with respect to \(U\) is the map \[\text{perp}_U : V \to U^{\perp}\]
+such that \(\text{perp}_U(\vec{v}) = \vec{v} - \text{proj}_U(\vec{v})\).
+
+\vspace{0.5cm}
+\textbf{Important Remark:} \\
+To better visualize this, if \(\{\vec{u}_1,\dots,\vec{u}_n\}\) is any orthonormal basis of \(V\) such that \(\{\vec{u}_1, \dots, \vec{u}_k\}\) is a basis of \(U\) then we have for any vector \(\vec{v} \in V\) \[\text{proj}_U(\vec{v}) = <\vec{u}_1, \vec{v}>\vec{u}_1 + \dots +<\vec{u}_k, \vec{v}>\vec{u}_k\]
+and
+\[\text{perp}_U(\vec{v}) = <\vec{u}_{k+1}, \vec{v}> \vec{u}_{k+1} + \dots + <\vec{u}_n, \vec{v} > \vec{u}_n\]
+Adding them we get, \[\vec{v} = \text{proj}_U(\vec{v}) + \text{perp}_U(\vec{v})\]
+\end{definitionbox}
+
+\begin{theorembox}
+\textbf{Fundamental Theorem of Linear Algebra Part II} \\
+(swap \(H\) for \(\perp\) when moving between \(\mathbb{C}\) and \(\mathbb{R}\))
+\begin{enumerate}
+    \item If \(A \in \mathcal{M}_{m \times n}(\mathbb{C})\) then
+    \begin{itemize}
+        \item \(\mathcal{N}(A)^\perp = \mathcal{R}(A^H)\)
+        \item \(\mathcal{R}(A^H)^\perp = \mathcal{N}(A)\)
+        \item \(\mathcal{N}(A^H)^\perp = \mathcal{R}(A)\)
+        \item \(\mathcal{R}(A)^\perp = \mathcal{N}(A^H)\)
+        \item \(\mathbb{C}^n = \mathcal{R}(A^H) \oplus \mathcal{N}(A)\)
+        \item \(\mathbb{C}^m = \mathcal{R}(A) \oplus \mathcal{N}(A^H)\)
+    \end{itemize}
+    \item If \(A \in \mathcal{M}_{m \times n}(\mathbb{R})\) then
+    \begin{itemize}
+        \item \(\mathcal{N}(A)^\perp = \mathcal{R}(A^T)\)
+        \item \(\mathcal{R}(A^T)^\perp = \mathcal{N}(A)\)
+        \item \(\mathcal{N}(A^T)^\perp = \mathcal{R}(A)\)
+        \item \(\mathcal{R}(A)^\perp = \mathcal{N}(A^T)\)
+        \item \(\mathbb{C}^n = \mathcal{R}(A^T) \oplus \mathcal{N}(A)\)
+        \item \(\mathbb{C}^m = \mathcal{R}(A) \oplus \mathcal{N}(A^T)\)
+    \end{itemize}
+\end{enumerate}
+\end{theorembox}
+
+% ======================================================
+\section{Chapter 10: The Spectral Theorem}
+\begin{definitionbox}
+\textbf{Def 10.1.1 Unitary and Orthogonal Similarity} \\
+\begin{enumerate}
+    \item \(\mathbb{C}\): If \(A\) and \(B\) are \(n \times n\) complex matrices then we say that \(A\) is \textbf{unitarily similar} to \(B\) if and only if there exists a unitary matrix \(U\) over \(\mathbb{C}\) such that \(B = U^{-1}AU = U^HAU\). Further \(A\) is \textbf{unitarily diagonable} if and only if it is unitarily similar to a diagonal matrix.
+    \item \(\mathbb{R}\):  If \(A\) and \(B\) are \(n \times n\) real matrices then we say that \(A\) is \textbf{orthogonally similar} to \(B\) if and only if there exists an orthogonal matrix \(Q\) over \(\mathbb{R}\) such that \(B = Q^{-1}AQ = Q^TAQ\). Further \(A\) is \textbf{orthogonally diagonable} if and only if it is orthogonally similar to a diagonal matrix.
+\end{enumerate}
+\end{definitionbox}
+
+\begin{theorembox}
+\textbf{Theorem 10.1.1. Unitary and Orthogonal Diagonalizability} \\
+\begin{enumerate}
+    \item \(\mathbb{C}\): An \(n \times n\) complex matrix \(A\) is unitarily diagonable if and only if there exists an orthonormal basis \(\mathcal{B} = \{\vec{v}_1, \dots, \vec{v}_n\}\) of \(\mathbb{C}^n\) consisting of eigenvectors of \(A\) - i.e. \(A \vec{v}_i = \lambda_i \vec{v}_i\) for \(i = 1, \dots, n\) with \(\lambda_i \in \mathbb{C}\). In this case the matrix \(U = [\vec{v}_1, \dots, \vec{v}_n]\) is a unitary matrix which diagonalizes \(A\).
+    \item \(\mathbb{R}\): An \(n \times n\) real matrix \(A\) is orthogonally diagonable if and only if there exists an orthonormal basis \(\mathcal{B} = \{\vec{v}_1, \dots, \vec{v}_n\}\) of \(\mathbb{R}^n\) consisting of eigenvectors of \(A\) - i.e. \(A \vec{v}_i = \lambda_i \vec{v}_i\) for \(i = 1, \dots, n\) with \(\lambda_i \in \mathbb{R}\). In this case the matrix \(U = [\vec{v}_1, \dots, \vec{v}_n]\) is an orthogonal matrix which diagonalizes \(A\).
+\end{enumerate}
+\end{theorembox}
+
+\begin{theorembox}
+\textbf{Theorem 10.1.2. Schur's Lemma} \\
+Every \(n \times n\) matrix \(A\) over the complex numbers (\(\mathbb{C}\)) is unitarily similar to an upper triangular matrix with the eigenvalues of \(A\) along the diagonal. In the case of an \(n \times n\) matrix \(A\) over the real numbers (\(\mathbb{R}\)), \(A\) is orthogonally similar to an upper triangular matrix with the eigenvalues of \(A\) along the diagonal provided the \(\chi_A(\lambda)\) factors linearly over \(\mathbb{R}\).
+\end{theorembox}
+
+\begin{definitionbox}
+\textbf{Def 10.1.2. Normal Complex Matrices} \\
+An \((n \times n)\) complex matrix \((\mathbb{C})\) \(A\) is said to be \textbf{normal} if and only if \[A^HA = AA^H\]
+\end{definitionbox}
+
+\begin{theorembox}
+\textbf{Theorem 10.1.3. The Spectral Theorem} \\
+An \(n \times n\) complex (\(\mathbb{C}\)) matrix \(A\) is unitarily diagonable if and only if \(A\) is normal. Alternately, \(A\) is normal if and only if there exists an orthonormal basis \(\mathcal{B} = \{\vec{u}_1, \dots,\vec{u}_n \}\) of \(\mathbb{C}^n\) consisting of eigenvectors of \(A\) (- i.e. \(A\vec{u}_i = \lambda_i \vec{u}_i\)) and hence a unitary matrix \(U = [\vec{u}_1,\dots,\vec{u}_n]\) such that \[A = UDU^H = \lambda_1\vec{u}_1\vec{u}_1^H + \dots + \lambda_n\vec{u}_n\vec{u}_n^H\]
+Notice that \(\vec{u}_i\vec{u}_i^H\) is the orthogonal projection of \(\mathbb{C}^n\) onto \(\mathbb{C}\vec{u}_i\).
+\end{theorembox}
+
+\begin{definitionbox}
+\textbf{Def 10.1.3. Special Matrices} \\
+There are three special subclasses of normal complex matrices:
+\begin{enumerate}
+    \item \textbf{hermitian matrices} \((A^H = A) \implies\) all of its eigenvalues are real.
+    \item \textbf{skew hermitian matrices} \((A^H = -A) \implies\) all of its eigenvalues are purely imaginary.
+    \item \textbf{unitary matrices} \((A^H = A^{-1}) \implies\) all of its eigenvalues have modulus one.
+\end{enumerate}
+\end{definitionbox}
+
+\begin{theorembox}
+\textbf{Theorem 10.2.1. Principal Axis Theorem} \\
+An \(n \times n\) real \((\mathbb{R})\) matrix \(A\) is orthogonally diagonable over the real numbers if and only if \(A\) is symmetric. Moreover, \(A\) is symmetric if and only if there exists an orthonormal basis \(\mathcal{B} = \{\vec{v}_1, \dots, \vec{v}_n\}\) of \(\mathbb{R}^n\) such that \[A = \lambda_1\vec{v}_1\vec{v}_1^T + \dots + \lambda_n\vec{v}_n\vec{v}_n^T\]
+where \(A \vec{v}_i = \lambda_i \vec{v}_i\).
+\end{theorembox}    
+
+    
+\end{document}
